@@ -1,0 +1,65 @@
+Sample CGI Script, Adapt Settings Per Server.
+--
+
+#!/usr/local/bin/rebol -cs
+
+REBOL [
+	Title: "Red"
+	Path: %../qm/qm.r
+	Date: 1-Dec-2013
+	Settings: [
+		home: http://www.red-lang.org/
+		domain: "red-lang.org"
+		owner: #[email! "@red_lang"]
+		public-key: "red"
+		private-key: "RED#red!Red"
+		session-timeout: 0:2
+		database: mysql://root@localhost/db_red
+		zone: 0:00
+		post-limit: 500 ;-- not active yet; can be altered per controller/action
+		default-controller: "news"
+
+		email: [
+			name "Starter"
+			email #[email! "@red_lang"]
+			host "mail.domain"
+			user "starter!domain"
+			pass "starter#email#12345"
+			type "text/html"
+		]
+
+		spaces: [
+			;-- QM requires entries for "system" "data" "site" "support"
+			;-- Fixed Filepaths Preferred
+			"system"  %../app/
+			"space"   %../space/
+			"site"    %../html/
+			"support" %../qm/support/
+
+			;-- Add more for your convenience
+		]
+
+		debug: true
+
+		exceptions: {
+			<html><head>
+			<title>Error: <%== reason-type %></title>
+			<link href="http://reb4.me/s/anywhere.css" rel="stylesheet" /></head>
+			<body>
+			<h1>QuarterMaster Starter</h1>
+			<h2>Error Message</h2>
+			<pre><code><%== reason %></code></pre>
+			</body>
+			</html>
+		}
+
+		connections: [
+			oauth:flickr.com [
+				consumer-key: <key>
+				consumer-secret: <secret>
+			]
+		]
+	]
+]
+
+do/args system/script/header/path system/script/header
