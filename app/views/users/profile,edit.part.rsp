@@ -1,0 +1,49 @@
+<div class="control-group field" data-name="name">
+	<label class="control-label" for="t_name"><em>Real Name</em></label>
+	<div class="controls"><%! field #t_name target/name (target/get 'name) %></div>
+</div>
+
+<div class="control-group field" data-name="email">
+	<label class="control-label" for="t_email"><em>Email</em></label>
+	<div class="controls"><%! field email! #t_email target/email (target/get 'email) %></div>
+</div>
+
+<div class="control-group field" data-name="password">
+	<label class="control-label" for="t_password"><em>Password</em></label>
+	<div class="controls"><%! password opt #t_password target/password %></div>
+</div>
+
+<div class="control-group field" data-name="confirmation">
+	<label class="control-label" for="t_confirmation"><em>Confirmation</em></label>
+	<div class="controls"><%! password opt #t_confirmation target/confirmation %></div>
+</div>
+
+<div class="control-group field" data-name="biography">
+	<label class="control-label" for="t_biography"><em>Short Biography</em></label>
+	<div class="controls"><%! area opt 60x8 #t_biography target/biography (target/get 'biography) "A Short Description of Yourself" /input-xxlarge %></div>
+</div>
+
+<div class="control-group field" data-name="text">
+	<label class="control-label" for="t_text"><em>Biography</em></label>
+	<div class="controls rmd"><%! area opt 60x8 #t_text target/text (target/text) "Your Bio" /input-xxlarge %></div>
+</div>
+
+<div class="control-group field" data-name="home_page">
+	<label class="control-label" for="t_home_page"><em>Home Page</em></label>
+	<div class="controls"><%! field opt url! #t_home_page target/home_page (target/get 'home_page) "Your Home Page" %></div>
+</div>
+
+<div class="control-group field" data-name="twitter_id">
+	<label class="control-label" for="t_twitter_id"><em>Twitter ID</em></label>
+	<div class="controls"><%! field opt #t_twitter_id target/twitter_id (target/get 'twitter_id) "@twitterid" %></div>
+</div>
+
+<div class="control-group field" data-name="google_profile">
+	<label class="control-label" for="t_google_profile"><em>Google Profile</em></label>
+	<div class="controls"><%! field opt url! #t_google_profile target/google_profile (target/get 'google_profile) "Paste Your Profile URL" %></div>
+</div>
+
+<div class="control-group field" data-name="facebook_profile">
+	<label class="control-label" for="t_facebook_profile"><em>Facebook Profile</em></label>
+	<div class="controls"><%! field opt url! #t_facebook_profile target/facebook_profile (target/get 'facebook_profile) "Paste Your Profile URL" %></div>
+</div>

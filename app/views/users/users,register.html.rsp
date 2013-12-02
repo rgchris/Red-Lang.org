@@ -1,0 +1,47 @@
+<div class="page-header">
+	<div class="container">
+		<h1>Contributor Registration</h1>
+		<p class="lead">Thanks for your interest&#8212;please allow some time for our moderators to approve your registration</p>
+	</div>
+</div>
+
+<%! form post %/users,register /form-horizontal /container %>
+
+<%= render/partial/with %errors/form with/only prospect [errors] %>
+
+<p><label for="toc" class="checkbox"><%! check #toc prospect/toc "true" (as logic! prospect/get 'toc) %> I have read and accept this site&#8217;s Contributor Guidelines.</label></p>
+
+<fieldset>
+	<legend><em>Account Information</em></legend>
+
+	<div class="field control-group" data-name="id">
+		<label for="p_id" class="control-label"><em>Your Username</em></label>
+		<div class="controls"><%! field #p_id prospect/id (prospect/get 'id) %></div>
+		<p>Your username can contain up to 15 characters, limited to alphanumeric or '_'</p>
+	</div>
+
+	<div class="field control-group" data-name="name">
+		<label for="p_name" class="control-label"><em>Your Name</em></label>
+		<div class="controls"><%! field #p_name prospect/name (prospect/get 'name) %></div>
+	</div>
+
+	<div class="field control-group" data-name="email">
+		<label for="p_email" class="control-label"><em>Your Email</em></label>
+		<div class="controls"><%! field #p_email email! prospect/email (prospect/get 'email) %></div>
+	</div>
+
+	<div class="field control-group" data-name="password">
+		<label for="p_password" class="control-label"><em>Your Password</em></label>
+		<div class="controls"><%! password #p_password prospect/password %></div>
+	</div>
+
+	<div class="field control-group" data-name="confirmation">
+		<label for="p_confirmation" class="control-label"><em>Confirmation</em></label>
+		<div class="controls"><%! password #p_confirmation prospect/confirmation %></div>
+	</div>
+
+	<div class="engage form-actions"><button type="submit" class="btn btn-primary"><em>Register</em></button></div>
+</fieldset>
+
+</form>
+</div>

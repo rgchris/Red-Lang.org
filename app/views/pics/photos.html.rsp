@@ -1,0 +1,13 @@
+<div class="page-header">
+	<div class="container"><h1>Photos</h1></div>
+</div>
+
+<div class="container">
+<ul class="thumbnails"><% photos/each [ %>
+<!-- <%! a (photos/url/(photo/4)/(photo/1)) 'lightbox %><%! img (photo/7) (photo/2) %></a> -->
+<li class="span1"><a href="<%== photo/8 %>" title="<%== photo/2 %>" data-lightbox="redlang" class="thumbnail"><%! img (photo/7) (photo/2) 75x75 %></a></li><% ] %>
+</ul>
+</div>
+
+<script src="/assets/lightbox.js"></script>
+<link href="/assets/lightbox.css" rel="stylesheet" />

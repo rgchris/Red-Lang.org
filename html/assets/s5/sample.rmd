@@ -1,0 +1,27 @@
+A =i Sample=i. Presentation
+
+	A. Reboller
+	June 2013
+
+===Sliding Around
+
+Slides start with a header: `===Slide Title`.
+
+===Incremental Bullets
+
+You can use...
+
+\list bullets incremental
+
+Incremental Bullets...
+
+With the `\list incremental` directive.
+
+/list
+
+===Video
+
+It's possible to embed videos too.
+
+http://youtu.be/JjPKj0_HBTY
+

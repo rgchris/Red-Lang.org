@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%== document/title %></title>
+<meta charset="utf-8"/>
+<!-- metadata -->
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="/assets/s5.css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="/assets/s5/outline.css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="/assets/s5/print.css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="/assets/s5/opera.css" media="projection" id="operaFix" />
+<!-- S5 JS -->
+<script src="/assets/s5/slides.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="layout">
+	<div id="logo"><img src="/assets/red-logo.png" alt="Red" width="120" height="100" title="Red" /></div>
+	<div id="controls"><!-- DO NOT EDIT --></div>
+	<div id="currentSlide"><!-- DO NOT EDIT --></div>
+	<div id="header"></div>
+	<div id="footer">
+		<h1><span>Red</span></h1>
+	</div>
+</div>
+
+<%= document/render %>
+
+</body>
+</html>

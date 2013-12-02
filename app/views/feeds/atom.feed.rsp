@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+<title><%== header/title %></title>
+<id><%== header/id %></id>
+<link href="<%= header/base %><%== next header/link %>" />
+<link rel="self" href="<%= header/base %><%== next form header/target %>" />
+<logo><%== form header/logo %></logo>
+<icon><%== form header/icon %></icon>
+<updated><%= form-date/gmt any [header/updated now] "%c" %></updated>
+<subtitle><%== header/subtitle %></subtitle>
+<%= render-each/with entry entries %feeds/entry [header] %>
+</feed>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%== title %></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/assets/red.css" rel="stylesheet" media="screen">
+<link href="/feeds/news.feed" type="application/atom+xml" rel="alternate" title="Red Latest">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery.js"></script> -->
+</head>
+
+<body>
+<div id="wrap">
+	<div class="navbar navbar-inverse navbar-fixed-top"  >
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="/">Red</a>
+				<ul class="nav"><% unless user/new? [ %>
+					<li><a href="/dashboard">Dashboard</a></li><% ] %>
+					<li><a href="/">Home</a></li>
+					<li><a href="/wiki/About">About</a></li>
+					<li><a href="/wiki/Download">Download</a></li>
+					<li><a href="/wiki/Documentation">Documentation</a></li>
+					<li><a href="/wiki/Contributions">Contributions</a></li>
+					<li><a href="/wiki/Roadmap">Roadmap</a></li>
+					<li><a href="/wiki/Donations">Donations</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div id="main">
+		<%= yield %>
+	</div>
+</div>
+
+<div class="footer" id="page-footer">
+	<div class="container">
+		<%= render/partial %fragments/footer %>
+	</div>
+</div>
+
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

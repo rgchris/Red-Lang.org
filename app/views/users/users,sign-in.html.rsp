@@ -1,0 +1,28 @@
+<div class="page-header">
+	<div class="container">
+		<h1>Sign In</h1>
+		<p class="lead">If you are not already a contributor, <a href="/users,register">register</a> here</p>
+	</div>
+</div>
+
+<%! form post %/users,sign-in /form-horizontal /container %>
+
+<fieldset>
+	<legend><em>Enter Username and Password</em></legend>
+
+	<%= render/partial/with %errors/form with/only target [errors] %>
+
+	<div class="control-group field" data-name="id">
+		<label class="control-label" for="u_id"><em>Name</em></label>
+		<div class="controls"><%! field #u_id user/id (target/get 'id) %></div>
+	</div>
+
+	<div class="control-group field" data-name="password">
+		<label class="control-label" for="u_password"><em>Pass</em></label>
+		<div class="controls"><%! password #u_password user/password %></div>
+	</div>
+
+	<div class="form-actions engage"><button type="submit" class="btn btn-primary"><em>Sign In</em></button></div>
+</fieldset>
+
+</form>

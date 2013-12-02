@@ -1,0 +1,12 @@
+<!-- \Page -->
+<%= page/document/render %>
+<!-- /page -->
+
+<%
+	if user/editor? [
+
+%><div class="page-header">
+	<div class="container">
+<%= render/partial/use %templates/actions reduce ['link link-to wiki/(page/id)/%,edit "Edit Page"] %>
+	</div>
+</div><% ] %>

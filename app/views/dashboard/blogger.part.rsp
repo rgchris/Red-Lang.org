@@ -1,0 +1,16 @@
+<div class="tab-pane" id="drafts">
+<div class="span8 offset1"><%
+
+some/empty drafts [
+
+%>
+<%= render-each item drafts %news/item %>
+</div>
+<% ][
+
+%><p><i>You have no drafts currently.</i></p><%
+
+] %>
+<p><a class="btn" href="/news,new"><em>Create News Item</em></a></p>
+</div>
+</div>

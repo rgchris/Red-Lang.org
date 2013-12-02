@@ -1,0 +1,11 @@
+<%
+
+	some collect [
+		foreach [role desc] target/roles? [
+			if target/has-role? role [keep desc]
+		]
+	][
+
+%><ul><% each desc [ %>
+	<li>Can <%= desc %></li><% ] %>
+</ul><% ] %>

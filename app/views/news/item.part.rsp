@@ -1,0 +1,5 @@
+<div class="row">
+	<h3><%! a (item/link) %><%== item/title %></a></h3>
+	<p class="byline"><%! time (any [item/get 'published item/get 'created]) "%B %e%i, %Y at %h:%M%p" %> by <b> <%== item/author/get 'name %></b></p>
+	<p class="well"><%! a (item/link) /short %><%== item/get 'short %></a><br/><%! a (item/link) %>More &#8594;</a></p>
+</div>

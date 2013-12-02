@@ -1,0 +1,30 @@
+
+<div class="page-header">
+	<div class="container">
+		<h1><%== draft/title %></h1>
+		<p class="lead">Created <%! time (draft/get 'created) "%Y.%m.%d" %> by <%== draft/author/get 'name %></p>
+		<%=
+
+			render/partial/use %templates/actions collect [
+				keep reduce ['link link-to news/(draft/id)/%,edit "Edit"]
+				if user/blogger? [
+					keep reduce ['button 'put link-to news/(draft/id)/%,status 'status "live" "Publish" /btn-primary]
+				]
+				keep reduce ['button 'delete link-to news/(draft/id) "Delete" /btn-danger]
+			]
+
+		%>
+	</div>
+</div>
+
+<nav role="tags"><ul class="tags">
+<%
+
+foreach tag any [draft/get 'tags []] [
+	%><li><%! a /label news/(wordify tag) %><em><%== tag %></em></a></li>
+<% ]
+
+%></ul></nav>
+
+
+<%= draft/html %>

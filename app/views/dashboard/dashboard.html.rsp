@@ -1,0 +1,110 @@
+<div class="page-header">
+	<div class="container">
+		<h1>Dashboard</h1>
+		<p class="lead">of <%== user/get 'name %></p>
+	</div>
+</div>
+
+<div class="container dashboard" >
+
+<ul class="inline">
+	<li><%! a users/profile/(user/id) /btn /btn-primary %><i class="icon-user icon-white"></i> <em>Edit Profile</em></a></li>
+	<% if user/moderator? [ %>
+	<li><a href="/users/list" class="btn btn-inverse">Manage Users</a></li><% 
+	]
+	%><li><form method="post" action="/users,sign-out">
+		<button type="submit" class="btn btn-warning"><em>Sign Out</em></button>
+	</form></li>
+</ul>
+
+
+<ul class="nav nav-tabs" id="dashboard">
+<%
+case/all [
+	user/moderator? [ %><li><a href="#pending" data-toggle="tab" id="pending-nav">Pending Users ( <% print length? pending-users %> )</a></li><% ]
+	user/blogger? [ %><li><a href="#drafts" data-toggle="tab" id="drafts-nav" >News Drafts</a></li><% ]
+]
+%>
+</ul>
+
+<div class="tab-content">
+<%
+case/all [
+	user/moderator? [print render/partial %moderator]
+	user/blogger? [print render/partial %blogger]
+]
+%>
+</div>
+
+<script type="text/javascript">
+//-------------
+// set_cookie
+//-------------
+function set_cookie(c_name,value,exdays){
+	var exdate=new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+	document.cookie=c_name + "=" + c_value;
+}
+
+
+//-------------
+// get_cookie
+//-------------
+function get_cookie(c_name) {
+	var c_value = document.cookie;
+	var c_start = c_value.indexOf(" " + c_name + "=");
+	if (c_start == -1){
+		c_start = c_value.indexOf(c_name + "=");
+	}
+	if (c_start == -1){
+		c_value = null;
+	}
+	else {
+		c_start = c_value.indexOf("=", c_start) + 1;
+		var c_end = c_value.indexOf(";", c_start);
+		
+		if (c_end == -1) {
+			c_end = c_value.length;
+		}
+		c_value = unescape(c_value.substring(c_start,c_end));
+	}
+	return c_value;
+}
+
+
+//-------------------------------------
+// on load we set the current tab.
+//-------------------------------------
+//alert(get_cookie("dashtb"));
+
+dashtb = get_cookie("dashtab");
+//console.log("dashtb=" + dashtb);
+
+
+// set the tab to show in cookies
+$('a[data-toggle="tab"]').on('shown', function (e) {
+    e.target; // activated tab
+    e.relatedTarget; // previous tab
+    dashtb = "#" + e.target.id
+    set_cookie("dashtab", dashtb, 365);
+    
+	//console.log("dashtb=" + dashtb);
+})
+
+
+
+// if we have a pane to show in the cookies, bind the show to the page loading.
+if (null != dashtb && "" != dashtb){
+	$(window).bind("load", function() {
+	   // code here
+		//alert ("setting pane! ' " + dashtb + " '")
+		dash_a = $(dashtb); // setting the var for further reference.
+		dash_a.tab('show');
+	});	
+}
+
+
+</SCRIPT>
+
+</div>

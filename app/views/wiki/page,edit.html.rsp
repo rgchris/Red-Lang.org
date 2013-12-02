@@ -1,0 +1,26 @@
+<div class="page-header">
+	<div class="container">
+		<h1><%== page/title %></h1>
+	</div>
+</div>
+
+<%! form /resizable /container /form-horizontal put wiki/(page/get 'id)/%,edit %>
+
+<fieldset>
+	<legend><em>Edit Page</em></legend>
+
+	<%= render/partial/with %errors/form with/only page [errors] %>
+
+	<div class="control-group field" data-name="text">
+		<label class="control-label" for="n_text"><em>Content</em></label>
+		<div class="controls rmd"><%! area /input-xxlarge #n_text 60x16 page/text (page/text) %></div>
+	</div>
+
+	<div class="form-actions engage">
+		<button type="submit" class="btn btn-primary"><em>Save</em></button> or <%! a (either page/new? [%/dashboard]['wiki/(page/id)]) %>Return</a> (no changes)
+	</div>
+</fieldset>
+
+</form>
+
+<script src="/assets/editor.js"></script>

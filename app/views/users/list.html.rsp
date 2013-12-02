@@ -1,0 +1,54 @@
+<div class="page-header">
+	<div class="container">
+		<h1>User Listing</h1>
+		<h2>Page <%== page/current %> of <%== page/last %><b><%
+
+sp: " &#8212; "
+
+case/all [
+	page/next [
+		prin sp sp: " | "
+		%><%! a users/list/(page/next) %>Next</a><%
+	]
+	page/previous [
+		prin sp
+		%><%! a users/list/(page/previous) %>Previous</a><%
+	]
+]
+
+%></b></h2>
+	</div>
+</div>
+
+<div class="container">
+
+<div class="table">
+<table class="table table-hover">
+<thead><tr>
+	<th>Name</th>
+	<th>Email</th><% foreach [role desc] user/roles? [ %>
+	<th><%= uppercase/part form role 1 %></th><% ] %>
+</tr></thead>
+<tbody><%
+
+munge: func [eml [email!]][
+	parse/all eml: form eml [
+		thru "@" skip eml: (insert clear eml "...")
+	] head eml
+]
+
+foreach profile page/records [
+
+%><tr>
+	<td><%! a users/profile/(profile/id) %><%== profile/get 'name %></a></td>
+	<td><%== munge profile/get 'email %></td><% foreach [role desc] profile/roles? [ %>
+	<td><% if profile/has-role? role [prin "&#10003;"] %></td><% ] %>
+</tr><%
+
+]
+	
+%></tbody>
+</table>
+</div>
+
+</section>

@@ -1,0 +1,40 @@
+
+<div class="page-header">
+	<div class="container">
+		<h1><small>[draft]</small> <%== draft/title %></h1>
+		<p class="lead"><%= form-date now "%A %B %e%i, %Y at %h:%M%p" %> <span class="muted">by <%== draft/author/get 'name %></span></p>
+	</div>
+</div>
+
+<%! form /container /form-horizontal put news/(draft/id)/%,edit %>
+
+<fieldset>
+	<legend><em>News Draft</em></legend>
+
+	<%= render/partial/with %errors/form with/only draft [errors] %>
+
+	<div class="control-group field" data-name="title">
+		<label class="control-label" for="d_title"><em>Title</em></label>
+		<div class="controls input"><%! field opt #d_title draft/title (draft/get 'title) "Draft Title" /input-xxlarge %></div>
+	</div>
+
+	<div class="control-group field" data-name="short">
+		<label class="control-label" for="d_short"><em>Short</em></label>
+		<div class="controls input">
+			<%! area 60x4 240 #d_short draft/short (draft/get 'short) "Summary (max 240 characters)." /input-xxlarge %>
+		</div>
+	</div>
+
+	<div class="control-group area" data-name="text">
+		<label class="control-label" for="d_text"><em>Article</em></label>
+		<div class="controls input rmd">
+			<%! area opt draft/text #d_text 60x16 (draft/text) "Draft Article." /input-xxlarge %>
+		</div>
+	</div>
+
+	<div class="form-actions engage"><button class="btn btn-primary" type="submit"><em>Save</em></button> or <%! a news/(draft/id) %>Discard Changes</a></div>
+</fieldset>
+
+</form>
+
+<script src="/assets/editor.js"></script>

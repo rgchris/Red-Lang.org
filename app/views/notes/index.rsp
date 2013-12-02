@@ -1,0 +1,7 @@
+<p><a href="/wiki">Start</a><% if pages/previous [ %>
+|| <%! a wiki/index/(pages/previous) %>Previous Page</a><% ] if pages/next [ %>
+|| <%! a wiki/index/(pages/next) %>Next Page</a><% ] %></p>
+
+<ul class="index"><% foreach page pages/records [ %>
+	<li><%! a wiki/show/(page/title) %><%= page/title %></a></li><% ] %>
+</ul>

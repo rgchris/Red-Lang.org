@@ -1,0 +1,14 @@
+<% unless empty? errors [
+%><div class="alert alert-error">
+	<p>Form Error:</p>
+	<ul><%
+
+	foreach [key errs] errors [
+		foreach err errs [ %>
+		<li><%= err %></li><%
+		]
+	]
+
+%>
+	</ul>
+</div><% ] %>

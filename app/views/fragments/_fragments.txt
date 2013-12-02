@@ -1,0 +1,1 @@
+Fragments are used by MakeDoc to access dynamic content. Bear in mind that any author/blogger can execute these templates.

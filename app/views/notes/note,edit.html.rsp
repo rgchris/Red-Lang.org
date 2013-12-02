@@ -1,0 +1,27 @@
+<div class="page-header">
+	<div class="container">
+		<h1><%== note/title %></h1>
+	</div>
+</div>
+
+<%! form /container /form-horizontal put notes/(note/get 'id)/%,edit %>
+
+<fieldset>
+	<legend><em>Edit Note</em></legend>
+
+	<%= render/partial/with %errors/form with/only note [errors] %>
+
+	<div class="control-group field" data-name="text">
+		<label class="control-label" for="n_text"><em>Content</em></label>
+		<div class="controls rmd"><%! area /input-xxlarge #n_text 60x16 note/text (note/text) %></div>
+	</div>
+
+	<div class="form-actions engage">
+		<button type="submit" class="btn btn-primary"><em>Save</em></button> or <%! a (either note/new? [%/dashboard]['notes/(note/id)]) %>Return</a> (no changes)
+	</div>
+</fieldset>
+
+</form>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="/assets/editor.js"></script>

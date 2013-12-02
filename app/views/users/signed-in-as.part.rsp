@@ -1,0 +1,3 @@
+<% unless user/new? [ %>
+<p>Signed In As<br/><%! a users/profile/(user/id) %><%== user/get 'name %></a></p>
+<% ] %>

@@ -1,0 +1,11 @@
+
+<entry>
+	<title><%== entry/title %></title>
+	<link href="<%= header/base %><%= next entry/link %>" />
+	<id><%= entry/tag %></id>
+	<author><name><%== entry/author/name %></name></author>
+	<published><%= form-date/gmt entry/get 'published "%c" %></published>
+	<updated><%= form-date/gmt entry/get 'modified "%c" %></updated>
+	<summary type="text"><%== trim/head/tail entry/get 'short %></summary>
+	<content type="html" xml:base="<%= header/base %>"><%== entry/html %></content>
+</entry>

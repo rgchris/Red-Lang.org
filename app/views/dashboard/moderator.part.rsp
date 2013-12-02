@@ -1,0 +1,21 @@
+<div class="tab-pane" id="pending"><%
+
+some pending-users [
+
+%>
+<ul class="thumbnails"><%
+
+	foreach user pending-users [
+
+%>
+<li class="span4"><div class="thumbnail">
+<h3><%: a users/profile/(user/id) %><%= user/name %></a></h3>
+</div></li><%
+
+	]
+
+%></ul><%
+
+]
+
+%></div>

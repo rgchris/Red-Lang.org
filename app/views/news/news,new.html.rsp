@@ -1,0 +1,40 @@
+
+<div class="page-header">
+	<div class="container">
+		<h1>Create a News Item</h1>
+		<p class="lead"><%= form-date now "%A %e%i %B, %Y" %></p>
+	</div>
+</div>
+
+<%! form /container /form-horizontal post %/news,new %>
+
+<fieldset>
+	<legend><em>Item Details</em></legend>
+
+	<%= render/partial/with %errors/form with/only draft [errors] %>
+
+	<div class="control-group field" data-name="title">
+		<label class="control-label" for="d_title"><em>Title</em></label>
+		<div class="controls input"><%! field opt #d_title draft/title (draft/get 'title) "Draft Title" /input-xxlarge %></div>
+	</div>
+
+	<div class="control-group field" data-name="short">
+		<label class="control-label" for="d_short"><em>Short</em></label>
+		<div class="controls input">
+			<%! area 60x4 240 #d_short draft/short (draft/get 'short) "Summary (max 240 characters)." /input-xxlarge %>
+		</div>
+	</div>
+
+	<div class="control-group area" data-name="text">
+		<label class="control-label" for="d_text"><em>Article</em></label>
+		<div class="controls input rmd">
+			<%! area opt draft/text #d_text 60x16 (draft/text) "Draft Article." /input-xxlarge %>
+		</div>
+	</div>
+
+	<div class="form-actions engage"><button type="submit" class="btn btn-primary"><em>Save</em></button> or <a href="/dashboard">Discard</a></div>
+</fieldset>
+
+</form>
+
+<script src="/assets/editor.js"></script>

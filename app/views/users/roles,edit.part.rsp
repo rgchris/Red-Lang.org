@@ -1,0 +1,8 @@
+<ul><% foreach [role desc] target/roles? [ %>
+	<li>
+		<%! label (join #role_ role) /checkbox %><%!
+			check (join #role_ role) target/roles/(role) "yes" (target/has-role? role)
+		%> Can <%= desc %>?</label>
+	</li><% ] %>
+</ul>
+

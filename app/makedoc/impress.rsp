@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1024" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title><%== document/title %></title>
+
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+<style type="text/css" media="screen">
+
+body {font: 2em "Open Sans", "Helvetica", sans-serif;}
+.step {position: relative; width: 900px; padding: 40px; margin: 20px auto;}
+.impress-supported .fallback-message {display: none;}
+.impress-enabled .step {margin: 0; opacity: 0.3; transition: opacity 1s; -webkit-transition: opacity 1s;}
+.impress-enabled .step.active {opacity: 1;}
+#background {opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+.impress-enabled .step, #background {transition: opacity 1s; -webkit-transition: opacity 4s; background-position: 50% 50%; background-size: contain; background-repeat: no-repeat;}
+
+.impress-in-rebol {
+	background: #222;
+	color: #fff;
+	padding: 1em;
+	font-weight: normal;
+	font-style: normal;
+}
+
+.code.rebol .dt-word, .code.rebol .dt-get-word {color: #ffe9b5;}
+.code.rebol .dt-function,
+.code.rebol .dt-native {color: #ffde2d;}
+.code.rebol .dt-datatype {color: #ffde2d;}
+.code.rebol .dt-bitset {color: #93fe64;}
+.code.rebol .dt-binary {color: #93fe64;}
+.code.rebol .dt-char {color: #93fe64;}
+.code.rebol .dt-date {color: #fff;}
+.code.rebol .dt-decimal {color: #fff;}
+.code.rebol .dt-email {color: #93fe64;}
+.code.rebol .dt-file {color: #93fe64;}
+.code.rebol .dt-integer {color: #fff;}
+.code.rebol .dt-issue {color: #44acf8;}
+.code.rebol .dt-lit-word {color: #fff;}
+.code.rebol .dt-logic {color: #fff;}
+.code.rebol .dt-money {color: #fff;}
+.code.rebol .dt-none {color: #fff;}
+.code.rebol .dt-pair {color: #fff;}
+.code.rebol .dt-string {color: #93fe64;}
+.code.rebol .dt-tag {color: #39ebd5;}
+.code.rebol .dt-time {color: #fff;}
+.code.rebol .dt-tuple {color: #fff;}
+.code.rebol .dt-url {color: #55acf8;}
+.code.rebol .dt-refinement {color: #ffe9b5;}
+.code.rebol .dt-set-word,
+.code.rebol .dt-rebol {color: #f66; font-weight: bold;}
+.code.rebol .dt-set-path {color: #f66; font-weight: bold;}
+.code.rebol .dt-cmt {background: #000; color: #bbb; font-style: italic;}
+.code.rebol .dt-url a:active,
+.code.rebol .dt-url a:hover {color: #dfb;}
+.code.rebol .dt-url a,
+.code.rebol .dt-url a:link,
+.code.rebol .dt-url a:visited {
+	background: #000;
+	color: #39ebd5; text-decoration: underline;
+	border: none; text-shadow: none;
+}
+
+<%= document/stylesheet %>
+</style>
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="background"></div>
+
+<%= document/render %>
+
+<script src="/assets/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>

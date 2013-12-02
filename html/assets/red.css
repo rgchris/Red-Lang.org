@@ -1,0 +1,129 @@
+
+@import url('//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css');
+/*@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:900,900italic|Ubuntu+Mono:400,700,400italic|Quattrocento+Sans:400,400italic,700,700italic|Quattrocento:700,700italic');*/
+
+/*@import url('/assets/bs/css/bootstrap.min.css');*/
+/*@import url('/assets/bs/css/bootstrap-responsive.min.css');*/
+
+html {height: 100%;}
+
+body {
+	background: #555;
+	/*	background: #333 url('denim-indigo.png');*/
+	/*	background: url('paint.png') center top repeat-y, black url('denim-indigo.png') left top repeat;*/
+	/*	background: url('paint.png') center top repeat-y, black url('denim-teal.png') left top repeat;*/
+	/*	background: url('paint.png') center top repeat-y, black url('denim-navy.png') left top repeat;*/
+	color: white;
+	font: 100%/1.4 "_Quattrocento Sans", "Helvetica", "Arial", sans-serif;
+	letter-spacing: 0.5px;
+	font-weight: 400;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	margin: 2em 0 0;
+}
+
+@media (max-width: 979px) {
+	body {margin-top: 0;}
+}
+
+em {font-weight: bold; font-style: normal;}
+
+section hr {margin: 3em 0 2.9em;}
+
+div.header {
+	text-align: right;
+}
+
+a, a:visited {
+	color: white; text-decoration: underline;
+}
+
+b.r {
+	text-shadow: 0 1px 0 black, 0 0 4px red;
+	font-weight: bold;
+}
+
+h1 {
+	font: 76px/0.88 "_Source Sans Pro", "Helvetica", "Arial", sans-serif;
+	font-weight: 900;
+}
+
+h2 {
+	font: bold 20px/1.41 "_Quattrocento", "Georgia", serif;
+}
+
+pre {
+	font: 1em/1.2 "_Ubuntu Mono", fixed;
+}
+
+pre.code {
+	background: rgba(0,0,0,0.2);
+	padding: 1em 1.5em;
+	border-radius: 0.3em;
+	box-shadow: inset 1px 1px 6px rgba(0,0,0,0.3), 0 0 40px rgba(0, 0, 0, 0.08) inset, 1px 1px 0 rgba(255,255,255,0.1);
+}
+
+#fork_me {position: absolute; top: 0; right: 0;}
+
+/** Button */
+
+	a.btn, a.btn:visited, a.btn em {
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		color: black;
+		text-decoration: none;
+	}
+
+/* -- **/
+
+/** News */
+
+	.month {margin-bottom: 2em;}
+	.month h4 {margin-bottom: -0.3em;}
+	.month a.short {color: black;}
+	.month a.short:hover {color: #08c;}
+
+/* -- **/
+
+/** Colour Code */
+
+	.code.rebol a, .code.rebol a:link, .code.rebol a:visited {
+		color: #ccc; text-decoration: underline;
+	}
+	.code.rebol .dt-url a, .code.rebol .dt-url a:link, .code.rebol .dt-url a:visited {
+		text-decoration: none;
+	}
+	.code.rebol .dt-url a {
+		background: rgba(221,255,221,0.5);
+		border-bottom: 1px dotted #9ca;
+		text-shadow: 0 0 6px #fff;
+	}
+	.code.rebol a:active, .code.rebol a:hover {color: #fff;}
+	.code.rebol var {color: #ffd; font-weight: normal; font-style: normal;}
+	.code.rebol .dt-function,
+	.code.rebol .dt-native {color: #fe8;}
+	.code.rebol .dt-datatype {color: #fe8;}
+	.code.rebol .dt-bitset {color: #9f7;}
+	.code.rebol .dt-binary {color: #9f7;}
+	.code.rebol .dt-char {color: #9f7;}
+	.code.rebol .dt-date {color: #fff;}
+	.code.rebol .dt-decimal {color: #fff;}
+	.code.rebol .dt-email {color: #9f7;}
+	.code.rebol .dt-file {color: #9f7;}
+	.code.rebol .dt-integer {color: #fff;}
+	.code.rebol .dt-issue {color: #9f7;}
+	.code.rebol .dt-lit-word {color: #fff;}
+	.code.rebol .dt-money {color: #fff;}
+	.code.rebol .dt-pair {color: #fff;}
+	.code.rebol .dt-string {color: #9f7;}
+	.code.rebol .dt-bitset {color: #9f7;}
+	.code.rebol .dt-tag {color: #9f7;}
+	.code.rebol .dt-time {color: #fff;}
+	.code.rebol .dt-tuple {color: #fff;}
+	.code.rebol .dt-url, .code.rebol a.dt-url {color: #9f7;}
+	.code.rebol .dt-refinement {color: #ffd;}
+	.code.rebol .dt-set-word,
+	.code.rebol .dt-rebol {color: #fa8; font-weight: bold;}
+	.code.rebol .dt-set-path {color: #fa8; font-weight: bold;}
+	.code.rebol .dt-cmt {color: #aaa; background: rgba(0,0,0,0.1); padding: 0.1em; font-style: italic;}
+	.code.rebol .dt-preamble {color: #9f7; font-style: italic;}
+
+/* - **/

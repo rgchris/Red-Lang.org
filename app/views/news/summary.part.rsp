@@ -1,0 +1,9 @@
+<li class="short">
+<article>
+	<hgroup>
+	<h1><%! a news/(draft/id)/%,edit %><em>Edit</em></a> <%! a news/(draft/id) %><%== draft/get 'title %></a></h1>
+	<h2>by <b><%== draft/author/get 'name %></b> <%! time (draft/get 'modified) "%Y.%m.%d %h:%M%p" %></h2>
+	</hgroup>
+	<p><%== draft/get 'short %></p>
+</article>
+</li>

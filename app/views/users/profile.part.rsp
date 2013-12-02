@@ -1,0 +1,1 @@
+<h2><i><%== target/get 'name %></i> (<%== target/get 'email %>)</h2>

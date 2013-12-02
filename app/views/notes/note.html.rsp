@@ -1,0 +1,24 @@
+<div class="page-header">
+	<div class="container">
+		<h1><%== note/title %></h1>
+	</div>
+</div>
+
+<div class="container">
+	
+<%=
+
+	render/partial/use %templates/actions collect [
+		if user/editor? [
+			keep reduce ['link link-to notes/(note/id)/%,edit "Edit Note"]
+			keep reduce ['button 'delete link-to notes/(note/id)/%,edit "Delete Note"]
+		]
+	]
+
+%>
+
+<!-- \Note -->
+<%= note/document/render %>
+<!-- /Note -->
+
+</div>

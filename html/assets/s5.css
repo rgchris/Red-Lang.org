@@ -1,0 +1,185 @@
+@import url('s5/slides.css');  /* stuff that makes the slides look better than blah */
+
+@import url("http://fonts.googleapis.com/css?family=Averia+Sans+Libre:400,700,400italic,700italic|Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext");
+
+* {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+body {
+	/*	background: #fff url('/assets/bg-bottom.png') repeat-x center bottom fixed;*/
+		background: white url('/assets/bg.png') repeat-x center top;
+	color: #333;
+	font: 1.2em/1.4 "Open Sans", "Myriad","Lucida Grande", "Geneva", sans-serif;
+}
+
+body * {
+	font-size: 1em;
+}
+
+div#logo {position: absolute; top: 20px; left: 20px; padding: 0; line-height: 1; z-index: -10;}
+
+h1, h1 i {font-weight: bold;}
+
+a {
+	color: #458;
+	text-decoration: none;
+}
+
+abbr {
+	font-style: normal;
+}
+
+blockquote,
+q {
+	font-style: italic;
+}
+
+pre, code {
+	font-family: "Consolas", "Monaco", "Courier New", "Courier", monospace;
+}
+
+pre {
+	font-size: 70%;
+}
+
+p code {
+	font-size: 0.9em;
+	border: 1px solid #ddd;
+	background-color: rgba(0,0,0,0.04);
+	padding: 0.1em 0.3em;
+	border-radius: 0.3em;
+	box-shadow: 1px 1px 9px rgba(0,0,0,0.1);
+}
+
+pre.long {
+	line-height: 1;
+}
+
+i, em {
+	font-style: italic;
+}
+
+b, strong {
+	font-weight: bold;
+}
+
+.slide p,
+.slide li,
+.slide dd,
+.slide table {
+	margin: .5em;
+}
+
+.slide pre,
+.slide figure {
+	margin: .5em 1em;
+}
+
+.slide figure {
+	text-align: center;
+}
+
+.slide figure img {
+	max-height: 24em;
+	max-height: 50vh;
+}
+
+.slide td,
+.slide th {
+	padding: .5em;
+}
+.slide .code li {
+	margin: 0;
+	list-style: none;
+}
+
+div#header,
+div#footer {
+	background: transparent;
+	color: #666;
+}
+div#footer {
+	font-size: 0.7em;
+	font-weight: bold;
+	padding: 1em 0;
+	text-align: right;
+	background: rgba(0,0,0,0.1);
+}
+
+#footer h1, #footer h2 {padding: 0 1em;}
+
+.slide {padding-top: 45px;}
+.slide h1 {
+	margin-left: 130px;
+	margin-bottom: 45px;
+	color: #444;
+	font-size: 130%;
+	background: transparent;
+}
+.slide h2 {
+	font-size: 120%;
+}
+.slide h3 {font-size: 110%; color: #555;}
+#controls #navList {
+	height: 1.2em;
+}
+#controls #navLinks #next {
+	position: absolute;
+	bottom: 1em;
+	right: 0;
+	display: block;
+	width: 40px;
+	height: 34px;
+	background-image: url("go-next.png");
+	background-repeat: no-repeat;
+	text-indent: 1000em;
+}
+
+#controls #navLinks #prev {
+	position: absolute;
+	bottom: 1em;
+	right: 50px;
+	display: block;
+	width: 36px;
+	height: 34px;
+	background-image: url("go-previous.png");
+	background-repeat: no-repeat;
+	text-indent: 1000em;
+}
+
+#controls #navLinks #toggle {
+	position: absolute;
+	bottom: 1em;
+	right: 90px;
+	display: block;
+	width: 36px;
+	height: 34px;
+	background-image: url("process-stop.png");
+	background-repeat: no-repeat;
+	text-indent: 1000em;
+}
+
+#controls #navList #jumplist {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background: #DDD;
+	color: #222;
+}
+
+#currentSlide {
+	text-align: center;
+	font-size: 0.5em;
+	color: #666;
+	font-family: Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+}
+
+#slide0 {padding-top: 3.5em;}
+#slide0 h1 {margin: 3em 0 0 0; text-align: center;}
+#slide0 h2 {margin: 2em 0 0 0; text-align: center;}
+#slide0 h3 {margin: 1em 0 0 0; font-size: 1em; text-align: center;}
+#slide0 h4 {margin: 1em 0 0 0; font-size: 1em; text-align: center;}
