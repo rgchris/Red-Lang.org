@@ -1,4 +1,4 @@
 <div class="month">
-<h4 class="row muted"><%! time (month) "%B %Y" %></h4>
-<%= render-each item items %item %>
+<h4 class="muted"><%! time (month) "%B %Y" %></h4>
+<%= render-each item items %item-full %>
 </div>

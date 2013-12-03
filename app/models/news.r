@@ -26,6 +26,7 @@ queries: make queries [
 
 	from: "SELECT * FROM news WHERE status = 'Live' AND id LIKE ? ORDER BY published DESC"
 	latest: "SELECT * FROM news WHERE status = 'Live' ORDER BY published DESC LIMIT 0,10"
+	latest-full: "SELECT i.*, d.html FROM news i JOIN documents d ON i.document = d.id WHERE i.status = 'Live' ORDER BY i.published DESC LIMIT 0,4"
 
 	find-in-title: {
 		SELECT * FROM news

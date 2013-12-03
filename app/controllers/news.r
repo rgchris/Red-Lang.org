@@ -28,7 +28,7 @@ route () to %news [
 		title: "Red: News"
 		where %.html [
 			subhead: "Latest"
-			collection: categorize select news [latest] func [item [object!]][
+			collection: categorize select news [latest-full] func [item [object!]][
 				all [
 					item: item/get 'published
 					to-date reduce [item/year item/month 1]

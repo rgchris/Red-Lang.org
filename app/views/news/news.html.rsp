@@ -1,12 +1,7 @@
 
-<div class="page-header">
-	<div class="container">
-		<h1>News</h1>
-		<p class="lead muted"><%= subhead %></p>
-	</div>
-</div>
+<h1>News</h1>
+<p class="lead muted"><%= subhead %></p>
 
-<div class="container">
 <div class="span7 offset1">
 <%= render-each [month items] collection %month %>
 </div>
@@ -17,4 +12,3 @@
 </div><% 
 ]
 %>
-</div>
