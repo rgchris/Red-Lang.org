@@ -1,4 +1,4 @@
-<ul class="inline"><%
+<ul class="list-inline"><%
 
 use [method target value label classes][
 
@@ -7,20 +7,20 @@ use [method target value label classes][
 			'button set method ['post | 'put | 'delete] set target file! [
 				set key word! set value string! set label string! set classes any refinement! (
 
-	%><li><%! form (method) (target) %><%! button (key) (value) (join [/btn] any [classes []]) %><%! em (label) %></button></form></li><%
+	%><li><%! form (method) (target) %><%! button (key) (value) (join [/btn] any [classes [/btn-default]]) %><%! em (label) %></button></form></li><%
 
 				)
 				|
 				set label string! set classes any refinement! (
 
-	%><li><%! form (method) (target) %><button type="submit" class="<%== reform join [/btn] any [classes []] %>"><%! em (label) %></button></form></li><%
+	%><li><%! form (method) (target) %><button type="submit" class="<%== reform join [/btn] any [classes [/btn-default]] %>"><%! em (label) %></button></form></li><%
 
 				)
 			]
 			|
 			'link set target [file! | email! | url!] set label string! set classes any refinement! (
 
-	%><li><%! a (target) (join [/btn] any [classes []]) %><%! em (label) %></a></li><%
+	%><li><%! a (target) (join [/btn] any [classes [/btn-default]]) %><%! em (label) %></a></li><%
 
 			)
 			|

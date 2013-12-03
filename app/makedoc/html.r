@@ -109,7 +109,17 @@ emit-smarttag: func [spec [block!] /local name val tag errs rel][
 		]
 		progress [
 			if integer? val: take tag [
-				emit ["<b>" val "%</b>"]
+				val: max 0 min 100 val
+				emit [
+					{<div class="progress"><div class="progress-bar }
+					case [
+						val < 25 ["progress-bar-danger"] val < 50 ["progress-bar-warning"]
+						val < 100 ["progress-bar-info"] true ["progress-bar-success"]
+					]
+					{" role="progressbar" aria-valuenow="}
+					val {" aria-valuemin="0" aria-valuemax="100" style="width: } max 8 val {%;">}
+					val {% Complete</div></div>}
+				]
 			]
 		]
 	][
@@ -308,7 +318,7 @@ banner?: [
 normal: [
 	para: (feed emit <p> emit-inline data emit </p>)
 	sect1: 
-		(feed emit <section> feed emit <div class="page-header"> emit-sect 1 data emit </div>)
+		(feed emit <section> feed emit-sect 1 data)
 		in-sect1
 		(feed emit </section>)
 	sect2:
@@ -319,7 +329,7 @@ normal: [
 	sect4: (feed emit-sect 4 data)
 	bullet: bullet2: bullet3: (feed emit [<ul> newline <li>] emit-inline data) in-bul (emit [</li> newline </ul>])
 	enum: enum2: enum3: (feed emit [<ol> newline <li>] emit-inline data) in-enum (emit [</li> newline </ol>])
-	code: (feed emit [<pre><code> sanitize data </code></pre>])
+	code: (feed emit [<pre class="code"> sanitize data </pre>])
 	output: (feed emit data) ; to output html directly
 	define-term: (feed emit <dl class="short">) continue in-deflist (feed emit </dl>)
 	image: flickr: instagram: (feed emit <figure class="image">) continue media (feed emit </figure>)
@@ -471,7 +481,7 @@ table-header: [
 	sect4: (emit <th> emit-sect 4 data emit </th>)
 	bullet: bullet2: bullet3: (emit "<th><ul>") continue in-bul (emit "</ul></th>")
 	enum: enum2: enum3: (emit "<th><ol>") continue in-enum (emit "</ol></th>")
-	code: (emit [<th> <pre> sanitize data </pre> </th>])
+	code: (emit [<th> <pre class="code"> sanitize data </pre> </th>])
 	output: (emit data) ; to output html directly
 
 	define-term:
@@ -516,7 +526,7 @@ table-rows: [
 	sect4: (emit <td> emit-sect 4 data emit </td>)
 	bullet: bullet2: bullet3: (emit {<td><ul>}) continue in-bul (emit {</ul></td>})
 	enum: enum2: enum3: (emit {<td><ol>}) continue in-enum (emit {</ol></td>})
-	code: (emit [<td> <pre><code> sanitize data </code></pre> </td> newline])
+	code: (emit [<td> <pre class="code"> sanitize data </pre> </td> newline])
 	output: (emit data) ; to output html directly
 
 	define-term:

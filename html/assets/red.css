@@ -1,64 +1,88 @@
 
-@import url('//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css');
-/*@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:900,900italic|Ubuntu+Mono:400,700,400italic|Quattrocento+Sans:400,400italic,700,700italic|Quattrocento:700,700italic');*/
+/*@import url('//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css');*/
+@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:900,900italic|Ubuntu+Mono:400,700,400italic|Quattrocento+Sans:400,400italic,700,700italic|Quattrocento:700,700italic');
 
-/*@import url('/assets/bs/css/bootstrap.min.css');*/
-/*@import url('/assets/bs/css/bootstrap-responsive.min.css');*/
+@-webkit-viewport {width: device-width; zoom: 1.0;}
+@-moz-viewport    {width: device-width; zoom: 1.0;}
+@-ms-viewport     {width: device-width; zoom: 1.0;}
+@-o-viewport      {width: device-width; zoom: 1.0;}
+@viewport         {width: device-width; zoom: 1.0;}
 
 html {height: 100%;}
 
 body {
-	background: #555;
-	/*	background: #333 url('denim-indigo.png');*/
-	/*	background: url('paint.png') center top repeat-y, black url('denim-indigo.png') left top repeat;*/
-	/*	background: url('paint.png') center top repeat-y, black url('denim-teal.png') left top repeat;*/
-	/*	background: url('paint.png') center top repeat-y, black url('denim-navy.png') left top repeat;*/
+	/*	background: #555;*/
+	background: #333 url('denim-indigo.png');
+	background: url('paint.png') center top repeat-y, black url('denim-indigo.png') left top repeat;
 	color: white;
-	font: 100%/1.4 "_Quattrocento Sans", "Helvetica", "Arial", sans-serif;
-	letter-spacing: 0.5px;
+	font: 16px/1.4 "Quattrocento Sans", "Helvetica", "Arial", sans-serif;
+/*	letter-spacing: 0.5px;*/
 	font-weight: 400;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
 	margin: 2em 0 0;
+	min-height: 2000px;
+	padding-top: 70px;
+}
+
+body.navy {
+	background: url('paint.png') center top repeat-y, black url('denim-navy.png') left top repeat;
+}
+
+body.teal {
+	background: url('paint.png') center top repeat-y, black url('denim-teal.png') left top repeat;
 }
 
 @media (max-width: 979px) {
-	body {margin-top: 0;}
+/*	body {margin-top: 0;}*/
 }
 
 em {font-weight: bold; font-style: normal;}
 
 section hr {margin: 3em 0 2.9em;}
 
-div.header {
-	text-align: right;
-}
-
-a, a:visited {
+a, a:visited, a:hover {
 	color: white; text-decoration: underline;
+	text-shadow: 0 0 6px rgba(0,0,0,0.5);
 }
 
-b.r {
+a:hover {
+	text-shadow: 0 0 6px rgba(153,0,0,1);
+}
+
+b.red {
 	text-shadow: 0 1px 0 black, 0 0 4px red;
 	font-weight: bold;
 }
 
 h1 {
-	font: 76px/0.88 "_Source Sans Pro", "Helvetica", "Arial", sans-serif;
+	font: 46px/0.88 "Source Sans Pro", "Helvetica", "Arial", sans-serif;
 	font-weight: 900;
+	text-shadow: 1px 2px 0 rgba(0,0,0,0.7);
 }
 
 h2 {
-	font: bold 20px/1.41 "_Quattrocento", "Georgia", serif;
+	font: bold 20px/1.41 "Quattrocento", "Georgia", serif;
 }
 
-pre {
-	font: 1em/1.2 "_Ubuntu Mono", fixed;
+pre, code {
+	font: 1em/1.2 "Ubuntu Mono", fixed;
+	color: inherit;
 }
 
-pre.code {
+pre.code, .well {
 	background: rgba(0,0,0,0.2);
 	padding: 1em 1.5em;
 	border-radius: 0.3em;
+	border: 0;
+	box-shadow: inset 1px 1px 6px rgba(0,0,0,0.3), 0 0 40px rgba(0, 0, 0, 0.08) inset, 1px 1px 0 rgba(255,255,255,0.1);
+}
+
+code {
+	background: rgba(0,0,0,0.2);
+	padding: 0.3em 0.5em;
+	border-radius: 0.3em;
+	border: none;
+	color: white;
 	box-shadow: inset 1px 1px 6px rgba(0,0,0,0.3), 0 0 40px rgba(0, 0, 0, 0.08) inset, 1px 1px 0 rgba(255,255,255,0.1);
 }
 
@@ -66,20 +90,111 @@ pre.code {
 
 /** Button */
 
-	a.btn, a.btn:visited, a.btn em {
-		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-		color: black;
+	.btn, .btn:visited, .btn:hover {
+		background-color: #333;
+		font-family: 'Quattrocentro', Helvetica, Arial, sans-serif;
+		font-weight: bold;
+		color: white;
+		text-decoration: none;
+		border: 2px solid rgba(255,255,255,0.1);
+		text-shadow: 0 1px 0 rgba(0,0,0,0.8);
+	}
+
+	.btn.btn-small {
+		font-size: 0.8em; line-height: 0.8;
+	}
+
+/*	.btn-default {background: #555;} .btn-default:hover {background: #666;}*/
+	.btn.btn-primary {background: #06a;} .btn.btn-warning:hover {background: #d80;}
+	.btn.btn-warning {background: #c70;} .btn.btn-warning:hover {background: #d80;}
+	.btn.btn-danger {background: #c00;} .btn.btn-danger:hover {background: #d00;}
+
+	.dropdown-menu {padding: 0.8em;}
+
+	.progress {max-width: 30em; background: rgba(0,0,0,0.2)}
+	.progress-bar {padding: 0 0.6em; text-align: left}
+
+/* -- **/
+
+/** Forms */
+
+	legend {color: white;}
+
+	form hr {display: block; clear: both; width: auto; border: none; margin: 4px 0;}
+
+/* -- **/
+
+/** Tables */
+
+	.table-condensed>tbody>tr>th, .table-condensed>tbody>tr>td {
+		border-top: 1px solid rgba(255,255,255,0.1);
+		border-bottom: 1px solid rgba(255,255,255,0.1);
+	}
+
+	/*.table-condensed>tbody>tr>th {
+		border-bottom: 1px solid rgba(255,255,255,0.3);
+	}
+	*/
+
+	.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
+		background: rgba(0,0,0,0.1);
+	}
+	
+/* - **/
+
+/** Navigation Tools */
+
+	.navbar a, .navbar a.visited {
 		text-decoration: none;
 	}
 
-/* -- **/
+	.nav>li>a:hover {
+		background: rgba(255,255,255,0.05);
+		border-color: rgba(255,255,255,0.05);
+	}
+
+	.nav>li.active>a, .nav>li.active>a:hover {
+		text-decoration: none;
+		color: white;
+		background: rgba(255,255,255,0.15);
+		border-color: rgba(255,255,255,0.15);
+		border-bottom: 1px solid rgba(255,255,255,0.2);
+	}
+
+	.nav-tabs {
+		border-bottom: 1px solid rgba(255,255,255,0.2);
+	}
+
+	.dropdown-menu {
+		color: black;
+		text-shadow: none;
+		line-height: 1.25em;
+		padding-bottom: 1em;
+	}
+
+/* - **/
+
+/** Header */
+
+	div.header {
+		margin-top: 2em;
+	}
+
+	h1.logo {
+		font-size: 1em;
+		margin: 0; padding: 0;
+		line-height: 105px;
+		text-align: right;
+	}
+
+/* - **/
 
 /** News */
 
 	.month {margin-bottom: 2em;}
 	.month h4 {margin-bottom: -0.3em;}
-	.month a.short {color: black;}
-	.month a.short:hover {color: #08c;}
+/*	.month a.short {color: black;}*/
+/*	.month a.short:hover {color: #08c;}*/
 
 /* -- **/
 

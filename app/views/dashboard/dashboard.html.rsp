@@ -7,12 +7,11 @@
 
 <div class="container dashboard" >
 
-<ul class="inline">
-	<li><%! a users/profile/(user/id) /btn /btn-primary %><i class="icon-user icon-white"></i> <em>Edit Profile</em></a></li>
-	<% if user/moderator? [ %>
-	<li><a href="/users/list" class="btn btn-inverse">Manage Users</a></li><% 
-	]
-	%><li><form method="post" action="/users,sign-out">
+<ul class="list-inline">
+	<li><%! a users/profile/(user/id) /btn /btn-primary %><i class="glyphicon glyphicon-user"></i> <em>Edit Profile</em></a></li><% if user/moderator? [ %>
+	<li><a href="/users/list" class="btn btn-default">Manage Users</a></li><% 
+	] %>
+	<li><form method="post" action="/users,sign-out">
 		<button type="submit" class="btn btn-warning"><em>Sign Out</em></button>
 	</form></li>
 </ul>

@@ -13,7 +13,7 @@
 <% if user/moderator? [ %>
 
 <div class="span3">
-	<p><a class="btn" href="/news,new"><em>Create News Item</em></a></p>
+	<p><a class="btn btn-default" href="/news,new"><em>Create News Item</em></a></p>
 </div><% 
 ]
 %>
