@@ -98,7 +98,8 @@ record: make record [
 		join form-date get 'published "tag:red-lang.org,%Y-%m-%d:" next link
 	]
 
-	created: does [any [get 'created get 'date]]
+	created: does [get 'created]
+	published: does [get 'published]
 
 	status: does [
 		any [

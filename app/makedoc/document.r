@@ -81,6 +81,7 @@ some [ ;here: (print here)
 		| "place" opt "s" commas (emit place values)
 		| "topic" opt "s" commas (emit topics values)
 		| ["break" | "hr"] term (emit break none)
+		| "donate" term (emit donate none)
 	]
 	
 	;-- URLs:
@@ -89,6 +90,7 @@ some [ ;here: (print here)
 		| ["youtube.com" | "youtu.be"] url-block (emit youtube values)
 		| "vimeo.com" url-block (emit vimeo values)
 		| "flickr.com" url-block (emit flickr values)
+		| "app.sliderocket.com" url-block (emit sliderocket values)
 	]
 
 	;-- load and embed fragments found in %/templates/fragments/ folder

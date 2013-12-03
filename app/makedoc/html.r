@@ -219,6 +219,22 @@ emit-instagram: func [spec [block!] /local photo href src alt][
 	]
 ]
 
+emit-sliderocket: func [spec [block!] /local slides size width height][
+	either slides: match/loose spec [
+		src: url!
+		size: opt pair!
+	][
+		width: any [slides/size 500x401]
+		height: width/y
+		width: either width/x = -1 ["100%"][width/x]
+		emit [
+			{^/<div class="sliderocket">^/<iframe src="} slides/src {" width="} width {" height="} height {" />^/</div>}
+		]
+	][
+		raise ["Invalid Sliderocket Spec: " sanitize mold spec]
+	]
+]
+
 get-video-id: func [spec [url!] /local id][
 	if parse/all spec amend [
 		"http" opt "s" "://" opt "www." [
@@ -275,27 +291,6 @@ emit-grid: func [options [block! none!]][
 	emit <div>
 ]
 
-emit-fragment: func [
-	file [block! string! file!]
-	/local path
-][
-	if block? file [
-		file: pick file 1
-	]
-	; we use attempt to make it safe to use any file data comming from insecure form without problems of generating some error.
-	; for example, some combination of file 
-	path: attempt [
-		 rejoin [%fragments/ file ".part.rsp" ]  
-	]
-	
-	;to-error mold/all path
-	any [
-		render/partial path
-		
-		rejoin [{^/<p class="fragment-error"> <font color=#FF0000>invalid fragment, not in templates folder: <pre>} mold/all path   {</pre></font><p>} ]
-	]
-]
-
 ;-- Paragraph States
 initial: [
 	options: ()
@@ -311,10 +306,6 @@ banner?: [
 ]
 
 normal: [
-	fragment: (
-		feed emit emit-fragment data
-	)
-
 	para: (feed emit <p> emit-inline data emit </p>)
 	sect1: 
 		(feed emit <section> feed emit <div class="page-header"> emit-sect 1 data emit </div>)
@@ -332,7 +323,7 @@ normal: [
 	output: (feed emit data) ; to output html directly
 	define-term: (feed emit <dl class="short">) continue in-deflist (feed emit </dl>)
 	image: flickr: instagram: (feed emit <figure class="image">) continue media (feed emit </figure>)
-	youtube: vimeo: (feed emit <figure class="media">) continue media (feed emit </figure>)
+	youtube: vimeo: sliderocket: (feed emit <figure class="media">) continue media (feed emit </figure>)
 	break: (feed emit <hr />)
 	figure-in: (feed emit <figure>) in-figure (feed emit </figure>)
 	figure-out: (raise "Unbalanced Figure")
@@ -395,6 +386,8 @@ normal: [
 	group-in: in-group ; useless in normal mode, here just to enforce balanced commands
 	group-out: (raise "Unbalanced Group-Out")
 	; default: (emit [<p> uppercase/part form word 1 " Unknown</p>"])
+
+	donate: (feed emit render/partial %fragments/donate)
 ]
 
 in-block: inherit normal [
@@ -575,10 +568,11 @@ media: [
 	flickr: (feed emit-flickr data) return
 	instagram: (feed emit-instagram data) return
 	image: (feed emit-image data) return
+	sliderocket: (feed emit-sliderocket data) return
 ]
 
 in-figure: [
-	image: flickr: instagram: youtube: vimeo: continue media
+	image: flickr: instagram: youtube: vimeo: sliderocket: continue media
 	para: (feed emit <figcaption> emit-inline data emit </figcaption>)
 	group-in: (feed emit <figcaption>) in-group (feed emit </figcaption>)
 	default: (raise "Content Misplaced in Figure")
@@ -632,6 +626,7 @@ inline: [
 paragraph: [
 	:string! (emit value)
 	<b> (emit <b>) in-bold (emit </b>)
+	<u> (emit <em>) in-underline (emit </em>)
 	<i> (emit <i>) in-italic (emit </i>)
 	<q> (emit <q>) in-qte (emit </q>)
 	<dfn> (emit <dfn>) in-dfn (emit </dfn>)
@@ -657,6 +652,8 @@ in-square: inherit paragraph [
 ]
 
 in-bold: inherit paragraph [</b> return </> continue return]
+
+in-underline: inherit paragraph [</u> return </> continue return]
 
 in-italic: inherit paragraph [</i> return </> continue return]
 

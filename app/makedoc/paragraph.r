@@ -19,6 +19,8 @@ not-in-word any [
 		| "b." (emit </b>)
 		| "i " (emit <i>)
 		| "i." (emit </i>)
+		| "u " (emit <u>)
+		| "u." (emit </u>)
 		; | "d " (emit <dfn>)
 		; | "d." (emit </dfn>)
 		| "q " (emit <q>)

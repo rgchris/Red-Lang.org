@@ -58,6 +58,10 @@ REBOL [
 				consumer-key: <key>
 				consumer-secret: <secret>
 			]
+
+			id:paypal.com [
+				button <id>
+			]
 		]
 	]
 ]

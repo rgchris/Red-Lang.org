@@ -1,0 +1,32 @@
+<div class="page-header" id="overview" style="padding-bottom: 0.4em; background: transparent;">
+	<div class="container">
+		<div class="row-fluid">
+			<h1>New Slide Show</h1>
+			<p class="lead lede">Create a new <a href="http://bartaz.github.io/impress.js/">Impress.js</a> or <a href="http://meyerweb.com/eric/tools/s5/">S5</a> Presentation from Plain Text.</p>
+		</div>
+	</div>
+</div>
+
+<div class="main">
+	<div class="container"><div class="row-fluid">
+		<div class="span10 offset1">
+			<%! form put %/show,new /form-inline %><fieldset>
+				<legend>Create a New Presentation</legend>
+				<%= render/partial/with %errors/form with/only slides [errors] %>
+				<div class="control-group field select" data-name="title type">
+					<%! field slides/title (slides/get 'title) "Title" %>
+					<%! select slides/type %><%
+					foreach option ["S5" "Impress"][ %>
+						<%! option (option) (option) (slides/get 'type) %><% ] %>
+					</select>
+				</div>
+				<div class="control-group area rmd" data-name="text">
+					<%! area /input-block-level slides.text #text 60x12 (slides/get 'text) "Slide Content Here" 50'000 %>
+				</div>
+				<div class="form-actions"><button type="submit" class="btn btn-primary">Save</button></div>
+			</form>
+		</div>
+	</div></div>
+</div>
+
+<script src="/assets/s5/editor.js"></script>

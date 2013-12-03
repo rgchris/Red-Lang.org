@@ -69,7 +69,6 @@ record: make record [
 		set 'status "live"
 		set 'editor user/id
 
-
 		set 'name switch/default get 'kind [
 			"News" "Opinion" [record/name]
 		][record/get 'id]

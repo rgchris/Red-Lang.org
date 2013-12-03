@@ -1,0 +1,23 @@
+<div class="page-header">
+	<div class="container"><h1>Slides</h1></div>
+</div>
+
+<div class="container">
+
+<ul class="inline dashboard">
+	<li><%! a %/show,new /btn /btn-primary %><i class="icon-comment icon-white"></i> <em>New Slide Show</em></a></li>
+</ul>
+
+<% unless some collection [
+%><table class="table table-condensed table-hover"><thead>
+<tr><th>Presentation</th><th>Author</th></tr>
+</thead><tbody><% foreach slides collection [ %>
+<tr>
+<td><%! a show/(slides/id) %><%== slides/title %> &rarr;</td>
+<td><%= slides/author/get 'name %></td>
+<td><%! a show/(slides/id)/%,show /btn %><i class="icon-fullscreen"></i> Show</a></td>
+</tr><% ] %>
+</thead></table><% true ][
+%><div class="well">
+<h2>No presentations at this time.</h2><% ] %>
+</div>

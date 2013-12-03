@@ -1404,18 +1404,18 @@ context [
 ;-------------------------------------------------------------------##
 context [
 	sw*: system/words
-	rights: [
+	rights: [ ; Permissions can be problematic.
 		folder [
 			owner-read: group-read:
 			owner-write: group-write:
 			owner-execute: group-execute: #[true]
-			world-read: world-write: world-execute: #[false]
+			world-read: world-write: world-execute: #[true] ; #[false]
 		]
 		file [
 			owner-read: group-read:
 			owner-write: group-write: #[true]
 			owner-execute: group-execute: #[false]
-			world-read: world-write: world-execute: #[false]
+			world-read: world-write: #[true] world-execute: #[false]
 		]
 	]
 
@@ -3463,7 +3463,7 @@ context [
 			data: []
 			errors: []
 
-			get: func [key [word!]][select data key]
+			get: func [key [word!]][foreach [k v] data [if k = key [break/return v]]]
 			set: func [key [word!] value][unset key value repend data [key value] value]
 			unset: func [key [word!]][remove-each [k v] data [k = key]]
 			inject: func [pending [block! none!] /only keys [block!] /except exceptions [block!]][

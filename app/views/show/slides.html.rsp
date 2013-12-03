@@ -1,0 +1,32 @@
+<div class="page-header" id="overview" style="padding-bottom: 0.4em; background: transparent;">
+	<div class="container">
+		<div class="row-fluid">
+			<p><a href="/show">&larr; All Slide Shows</a></p>
+			<h1><%== slides/title %></h1>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<ul class="inline dashboard">
+		<li><%! a show/(slides/id)/%,show /btn /btn-primary %><i class="icon-fullscreen icon-white"></i> <em>Show Slides</em></a></li>
+		<li><%! a show/(slides/id)/%,edit /btn %><i class="icon-comment"></i> <em>Edit Slides</em></a></li>
+		<li><%! a show/(slides/id)/%.rmd /btn %><i class="icon-align-left"></i> <em>View Source</em></a></li>
+		<li class="btn-group">
+			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#">Delete Slides <i class="caret"></i></a>
+			<!-- dropdown menu links -->
+			<div class="dropdown-menu" style="padding: 1em 1em 0">
+			<p>Warning: Cannot be undone.</p>
+			<%! form delete show/(slides/id)/%,edit %>
+			<button type="submit" class="btn"><i class="icon-remove"></i> <em>Delete Slides</em></button>
+			</form>
+			</div>
+		</li>
+	</ul>
+	<div class="well" style="clear: both">
+	<p><%== slides/document/title %></p><% some meta: slides/document/boiler [ %>
+	<ul><% foreach para meta [ %>
+	<li><%== para %></li><% ] %>
+	</ul><% ] %>
+	</div>
+</div>
