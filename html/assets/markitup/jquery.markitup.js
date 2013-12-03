@@ -144,16 +144,16 @@
 					nameSpace = 'class="'+options.nameSpace+'"';
 				}
 				$$.wrap('<div '+nameSpace+'></div>');
-				$$.wrap('<div '+id+' class="markItUp"></div>');
-				$$.wrap('<div class="markItUpContainer"></div>');
-				$$.addClass("markItUpEditor");
+				$$.wrap('<div '+id+' class="editor-main"></div>');
+				$$.wrap('<div class="editor-container"></div>');
+				$$.addClass("editor-textarea");
 
 				// add the header before the textarea
-				header = $('<div class="markItUpHeader"></div>').insertBefore($$);
-				$(dropMenus(options.markupSet)).appendTo(header);
+				header = $('<div class="editor-header"></div>').insertBefore($$);
 
 				// add the footer after the textarea
-				footer = $('<div class="markItUpFooter"></div>').insertAfter($$);
+				footer = $('<div class="editor-footer"></div>').insertAfter($$);
+				$(dropMenus(options.markupSet)).appendTo(footer);
 
 				// add the resize handle after textarea
 				if (options.resizeHandle === true && browser.safari !== true) {
@@ -199,21 +199,27 @@
 
 			// recursively build header with dropMenus from markupset
 			function dropMenus(markupSet) {
-				var ul = $('<ul></ul>'), i = 0;
-				$('li:hover > ul', ul).css('display', 'block');
+				var toolbar = $('<div class="btn-toolbar"/>'), i = 0;
+				var btngroup = '<div class="btn-group"/>';
+				var group = $(btngroup);
+
 				$.each(markupSet, function() {
-					var button = this, t = '', title, li, j;
+					var button = this, t = '', title, btn, j;
 					button.title ? title = (button.key) ? (button.title||'')+' [Ctrl+'+button.key+']' : (button.title||'') : title = (button.key) ? (button.name||'')+' [Ctrl+'+button.key+']' : (button.name||'');
 					key   = (button.key) ? 'accesskey="'+button.key+'"' : '';
 					if (button.separator) {
-						li = $('<li class="markItUpSeparator">'+(button.separator||'')+'</li>').appendTo(ul);
+						$(group).appendTo(toolbar);
+						$('<hr style="margin: 2px 0 1px;" class="input-xxlarge"/>').appendTo(toolbar);
+						group = $(btngroup);
 					} else {
 						i++;
 						for (j = levels.length -1; j >= 0; j--) {
 							t += levels[j]+"-";
 						}
-						li = $('<li class="markItUpButton markItUpButton'+t+(i)+' '+(button.className||'')+'"><a href="" '+key+' title="'+title+'">'+(button.name||'')+'</a></li>')
+						btn = $('<a class="btn btn-small editbar-no'+t+(i)+' '+(button.className||'')+'" href="" '+key+' title="'+title+'"><em>'+(button.name||'')+'</em></a>')
 						.bind("contextmenu.markItUp", function() { // prevent contextmenu on mac and allow ctrl+click
+							return false;
+						}).click(function() {
 							return false;
 						}).bind('click.markItUp', function(e) {
 							e.preventDefault();
@@ -225,23 +231,16 @@
 							}
 							setTimeout(function() { markup(button) },1);
 							return false;
-						}).bind('mouseenter.markItUp', function() {
-								$('> ul', this).show();
-								$(document).one('click', function() { // close dropmenu if click outside
-										$('ul ul', header).hide();
-									}
-								);
-						}).bind('mouseleave.markItUp', function() {
-								$('> ul', this).hide();
-						}).appendTo(ul);
+						}).appendTo(group);
 						if (button.dropMenu) {
 							levels.push(i);
-							$(li).addClass('markItUpDropMenu').append(dropMenus(button.dropMenu));
+							$(btn).addClass('markItUpDropMenu').append(dropMenus(button.dropMenu));
 						}
-					}
+					};
+					$(group).appendTo(toolbar);
 				}); 
 				levels.pop();
-				return ul;
+				return toolbar;
 			}
 
 			// markItUp! markups
@@ -507,7 +506,7 @@
 							previewWindow.close();
 						});
 					} else {
-						iFrame = $('<iframe class="markItUpPreviewFrame"></iframe>');
+						iFrame = $('<iframe class="markitup-preview"></iframe>');
 						if (options.previewPosition == 'after') {
 							iFrame.insertAfter(footer);
 						} else {

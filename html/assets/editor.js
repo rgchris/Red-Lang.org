@@ -6,7 +6,7 @@ var makeDoc = {
 	markupSet:  [
 		{name:'Bold', key:'B', closeWith:'=b\.', openWith:'=b '},
 		{name:'Italic', key:'I', closeWith:'=i\.', openWith:'=i '},
-		{name:'Link', key:'L', openWith:'=\[', closeWith:'\](http://www.red-lang.org/)', placeHolder:'...linked text here...' },
+		{name:'Link', key:'L', openWith:'\[', closeWith:'\](http://www.red-lang.org/)', placeHolder:'...linked text here...' },
 		{name:'Highlight', key:'H', closeWith:'=h\.', openWith:'=h '},
 		{name:'Strike', key:'S', closeWith:'=x\.', openWith:'=x '},
 		{separator:'<br />'},
@@ -30,10 +30,3 @@ $.getScript('/assets/markitup/jquery.markitup.js').done(
 		console.log(exception);
 	}
 );
-
-makeToggleForms = function() {
-	var forms = $('form.resizable');
-
-	// add a button to 
-}
-	
