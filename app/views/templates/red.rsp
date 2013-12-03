@@ -10,7 +10,7 @@
 <script src="//code.jquery.com/jquery.js"></script>
 </head>
 
-<body>
+<% either controller/name = "wiki" [ %><body class="navy"><% ][ %><body><% ] %>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container">

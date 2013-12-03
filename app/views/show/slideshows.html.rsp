@@ -4,8 +4,8 @@
 
 <div class="container">
 
-<ul class="inline dashboard">
-	<li><%! a %/show,new /btn /btn-primary %><i class="icon-comment icon-white"></i> <em>New Slide Show</em></a></li>
+<ul class="list-inline dashboard">
+	<li><%! a %/show,new /btn /btn-primary %><i class="glyphicon glyphicon-comment"></i> <em>New Slide Show</em></a></li>
 </ul>
 
 <% unless some collection [
@@ -15,7 +15,7 @@
 <tr>
 <td><%! a show/(slides/id) %><%== slides/title %> &rarr;</td>
 <td><%= slides/author/get 'name %></td>
-<td><%! a show/(slides/id)/%,show /btn %><i class="icon-fullscreen"></i> Show</a></td>
+<td><%! a show/(slides/id)/%,show /btn %><i class="glyphicon glyphicon-fullscreen"></i> Show</a></td>
 </tr><% ] %>
 </thead></table><% true ][
 %><div class="well">

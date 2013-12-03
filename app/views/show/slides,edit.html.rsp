@@ -1,4 +1,4 @@
-<div class="page-header" id="overview" style="padding-bottom: 0.4em; background: transparent;">
+<div class="page-header" id="overview">
 	<div class="container">
 		<div class="row-fluid">
 			<h1><%== slides/title %></h1>
