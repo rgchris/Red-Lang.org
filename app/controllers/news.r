@@ -91,6 +91,19 @@ route (year: integer! is between 2000x20000 month: opt integer! is between 1x12)
 	]
 ]
 
+route ("tag" tag: string! [wordify]) to %news [
+	get [
+		history: news/locals/history
+
+		collection: categorize select news [by-tag tag] func [item [object!]][
+			all [
+				item: item/get 'published
+				to-date reduce [item/year item/month 1]
+			]
+		]
+	]
+]
+
 route ("draft" name: string! [1 52 name]) to %draft [
 	verify [
 		draft: select news id: press ["draft/" name] [
@@ -239,8 +252,7 @@ to %item [
 
 		unless change-status item/get 'status get-param/body 'status [
 			"live" "ready" (user/blogger?) [
-				item/set 'status "Ready"
-				item/store
+				item/demote
 				news/locals/latest-feed header/feed
 				flash/show ["Item '" item/title "' returned to drafts."]
 			]

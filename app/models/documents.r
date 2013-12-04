@@ -112,4 +112,12 @@ record: make record [
 			to-url either image/1 = #"/" [head change/part image settings/home 1][image]
 		]
 	]
+
+	tags: does [
+		collect [
+			foreach [style content] get 'document [
+				if style = 'tags [keep content]
+			]
+		]
+	]
 ]

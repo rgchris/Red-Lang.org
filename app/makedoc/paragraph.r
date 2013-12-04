@@ -39,13 +39,14 @@ not-in-word any [
 		| "c." (emit </cite>)
 		| "." (emit </>)
 	]
-	| #"(" [
+	| #"(" [[
 		  "c)" (emit 169)
 		| "r)" (emit 174)
 		| "o)" (emit 176)
 		| "tm)" (emit 8482)
 		| "e)" (emit 8364)
-	] in-word
+
+	] in-word | (emit "(") not-in-word]
 	| #"[" copy char number "]" (emit reduce ['link to-issue char])
 	| #"[" (emit <sb>)
 	| "]" opt [paren (emit values) | (emit </sb>)] in-word

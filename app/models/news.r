@@ -45,8 +45,18 @@ queries: make queries [
 		LIMIT 0,11
 	}
 
+	by-tag: {
+		SELECT i.*, d.html
+		FROM news i
+		LEFT JOIN tags_news t ON t.item = i.id
+		LEFT JOIN documents d ON i.document = d.id
+		WHERE t.tag = ?
+		LIMIT 0,11
+	}
+
 	connect-author: "INSERT INTO authors_news (author,item) VALUES (?,?)"
 	purge-author: "DELETE FROM authors_news WHERE item = ?"
+	purge-tags: "DELETE FROM tags_news WHERE item = ?"
 
 	update-id: "UPDATE news SET id = ? WHERE id = ?"
 
@@ -67,7 +77,7 @@ record: make record [
 
 	on-create: does [
 		set 'created now
-		set 'status "draft"
+		set 'status "Draft"
 		set 'rating 0
 		draft?: true
 	]
@@ -190,6 +200,7 @@ record: make record [
 		if make-id [
 			store
 
+			connect-tags id document/tags
 			select owner [connect-author get 'author id]
 
 			link: link-to news/:id
@@ -199,7 +210,23 @@ record: make record [
 	demote: does [
 		set 'status "Ready"
 		store
+		select owner [purge-tags id]
 		select owner [purge-author id]
+	]
+]
+
+connect-tags: func [item [string!] tags [block!] /local query slot][
+	unless empty? tags [
+		query-db collect [
+			slot: " (?,?)"
+			keep query: copy "INSERT INTO tags_news (tag,item) VALUES" ; " (?,?),(?,?)"
+			foreach tag tags [
+				append query slot
+				slot: ",(?,?)"
+				keep wordify tag
+				keep item
+			]
+		]
 	]
 ]
 

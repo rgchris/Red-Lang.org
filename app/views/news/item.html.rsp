@@ -1,7 +1,20 @@
 <h1><% unless item/live? [ %><small>[edit]</small> <% ] %><%== title %></h1>
 <p class="lead byline"><%! time (item/get 'published) "%Y.%m.%d" %> by <b><%== item/author/get 'name %></b></p>
 
-<%=
+
+
+
+<div class="row">
+
+<div class="col-md-8 main">
+<%= item/html %>
+</div>
+
+<div class="col-md-4 side"><% some item/document/tags [ %>
+<ul class="list-unstyled"><% foreach tag item/document/tags [ %>
+	<li><%! a news/tag/(wordify tag) /label /label-default %><%== tag %></a></li><% ] %>
+</ul><% ] %><%=
+
 	if user/blogger? [
 		render/partial/use %templates/actions collect [
 			switch item/status [
@@ -13,15 +26,6 @@
 			]
 		]
 	]
+
 %>
-
-
-<div class="row">
-
-<div class="col-md-8 main">
-<%= item/html %>
-</div>
-
-<div class="col-md-4 side">
-<!-- Tags, etc. -->
 </div>
