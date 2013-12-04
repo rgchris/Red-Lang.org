@@ -16,7 +16,7 @@ REBOL [
 	]
 ]
 
-color-code: use [out emit whitelist emit-var emit-header rule value][
+color-code: use [out emit whitelist emit-var rule value][
 	out: none
 	emit: func [data][
 		data: reduce envelop data until [append out take data empty? data]
@@ -33,9 +33,10 @@ color-code: use [out emit whitelist emit-var emit-header rule value][
 		| "recode.revault.org"
 	]
 
-	emit-var: func [value start stop /local type][
+	emit-var: func [value start stop /local type out][
 		either none? :value [type: "cmt"][
 			if path? :value [value: first :value]
+
 			type: either word? :value [
 				any [
 					all [find [Rebol Red Topaz Freebell] value "rebol"]
@@ -48,27 +49,23 @@ color-code: use [out emit whitelist emit-var emit-header rule value][
 			]
 		]
 
-		value: either all [
+		out: sanitize copy/part start stop
+
+		either all [
 			url? value
 			parse/all value [
 				"http" opt "s" "://" whitelist to end
 			]
 		][
 			rejoin [
-				"-[" {-a class=-|} {-dt-url-} {|- href=-|} "-" value "-" {|--} "]-" copy/part start stop "-[" {-/a-} "]-"
+				{<a class="dt-url" href="} out {">} out {</a>}
 			]
 		][
-			copy/part start stop
-		]
-
-		either type [ ; (Done this way so script can color itself.)
-			emit [
-				"-[" {-var class=-|} {-dt-} type {-} {|--} "]-"
-				value
-				"-[" "-/var-" "]-"
+			either type [
+				emit [{<var class="dt-} type {">} out {</var>}]
+			][
+				emit out
 			]
-		][
-			emit value
 		]
 	]
 
@@ -92,8 +89,7 @@ color-code: use [out emit whitelist emit-var emit-header rule value][
 				newline (emit "^/") |
 				#";" [thru newline | to end] new:
 					(emit-var none str new) |
-				#"[" (emit "_[" emit "_") rule |
-				#"(" (emit "(") rule |
+				[#"[" | #"("] (emit first str) rule |
 				[#"]" | #")"] (emit first str) break |
 				[8 hx | 4 hx | 2 hx] #"h" new:
 					(emit-var 0 str new) |
@@ -106,7 +102,7 @@ color-code: use [out emit whitelist emit-var emit-header rule value][
 		]
 
 		[
-			rule [end | str: to end (emit str)]
+			rule [end | str: to end (emit sanitize str)]
 		]
 	]
 
@@ -116,15 +112,6 @@ color-code: use [out emit whitelist emit-var emit-header rule value][
 	][
 		out: make binary! 3 * length? text
 		parse/all text [rule]
-		out: sanitize to string! out
-
-		foreach [from to] reduce [ ; (join avoids the pattern)
-			; "&" "&amp;" "<" "&lt;" ">" "&gt;" "^(A9)2" "&copy;2"
-			join "-[" "-" "<" join "-" "]-" ">" join "-|" "-" {"}
-			join "_[" "_" "["
-		][
-			replace/all out from to
-		]
 
 		insert out {<pre class="code rebol">}
 		append out {</pre>}
