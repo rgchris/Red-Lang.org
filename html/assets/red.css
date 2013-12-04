@@ -65,7 +65,7 @@ pre, code {
 	color: inherit;
 }
 
-pre.code, .well {
+pre.code, .well, #_log pre {
 	background: rgba(0,0,0,0.2);
 	padding: 1em 1.5em;
 	border-radius: 0.3em;
@@ -183,14 +183,26 @@ code {
 		text-align: right;
 	}
 
+	h1 a, h1 a:visited, h1 a:hover {text-decoration: none;}
+
 /* - **/
 
 /** News */
 
 	.month {margin-bottom: 2em;}
-	.month h4 {margin-bottom: -0.3em;}
+	.month h1 {margin-top: 1em;}
+	.month h4 {
+		margin-left: -1.2em;
+		margin-bottom: -0.3em;
+		padding: 0.4em 2em;
+		background: #a00;
+		display: inline-block;
+		box-shadow: 1px 2px 0 #600, -1px -1px 1px rgba(0,0,0,0.2);
+	}
 /*	.month a.short {color: black;}*/
 /*	.month a.short:hover {color: #08c;}*/
+
+	.byline b {color: #c00;}
 
 /* -- **/
 

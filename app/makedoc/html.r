@@ -319,7 +319,7 @@ initial: [
 banner?: [
 	banner: (emit render/partial %templates/banner)
 	default:
-		(emit {^/<!-- document begin -->^/<div class="container main">})
+		(emit {^/<!-- document begin -->^/<div class="document">})
 		continue normal
 		(emit "^/</div>^/<!-- document end -->^/")
 ]

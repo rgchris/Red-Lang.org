@@ -1,5 +1,5 @@
 <div>
-	<h3><%! a (item/link) %><%== item/title %></a></h3>
+	<h1><%! a (item/link) %><%== item/title %></a></h1>
 	<p class="byline"><%! time (any [item/published item/created]) "%B %e%i, %Y" %> by <b> <%== item/author/get 'name %></b></p>
 	<p class="well"><%! a (item/link) /short %><%== item/get 'short %></a><br/><%! a (item/link) %>More &#8594;</a></p>
 </div>

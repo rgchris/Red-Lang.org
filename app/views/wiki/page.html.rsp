@@ -1,12 +1,20 @@
+<div class="row">
+
+<div class="col-md-8 main">
 <!-- \Page -->
 <%= page/document/render %>
 <!-- /page -->
+</div>
 
+<div class="col-md-3 col-md-offset-1 side">
+<!-- Tags, etc. -->
 <%
 	if user/editor? [
 
-%><div class="page-header">
-	<div class="container">
-<%= render/partial/use %templates/actions reduce ['link link-to wiki/(page/id)/%,edit "Edit Page"] %>
-	</div>
-</div><% ] %>
+%><%= render/partial/use %templates/actions reduce ['link link-to wiki/(page/id)/%,edit "Edit Page"] %><%
+
+	]
+
+%></div>
+
+</div>

@@ -1,36 +1,27 @@
+<h1><% unless item/live? [ %><small>[edit]</small> <% ] %><%== title %></h1>
+<p class="lead byline"><%! time (item/get 'published) "%Y.%m.%d" %> by <b><%== item/author/get 'name %></b></p>
 
-<div class="page-header">
-	<div class="container">
-		<h1><% unless item/live? [ %><small>[edit]</small> <% ] %><%== title %></h1>
-		<p class="lead"><%! time (item/get 'published) "%Y.%m.%d %h:%M%p" %> <span class="muted">by <%== item/author/get 'name %></span></p>
-		<%=
-
-			if user/blogger? [
-				render/partial/use %templates/actions collect [
-					switch item/status [
-						"Live" [keep reduce ['button 'put join item/link %,status 'status "ready" "Unpublish"]]
-						"Ready" [
-							keep reduce ['link join item/link %,edit "Edit"]
-							keep reduce ['button 'put join item/link %,status 'status "live" "Republish"]
-						]
-					]
+<%=
+	if user/blogger? [
+		render/partial/use %templates/actions collect [
+			switch item/status [
+				"Live" [keep reduce ['button 'put join item/link %,status 'status "ready" "Unpublish"]]
+				"Ready" [
+					keep reduce ['link join item/link %,edit "Edit"]
+					keep reduce ['button 'put join item/link %,status 'status "live" "Republish"]
 				]
 			]
+		]
+	]
+%>
 
-		%>
-	</div>
+
+<div class="row">
+
+<div class="col-md-8 main">
+<%= item/html %>
 </div>
 
-<nav role="tags"><ul class="tags"><%
-
-foreach tag any [item/get 'tags []] [
-	%><li><%! a /label news/(wordify tag) %><em><%== tag %></em></a></li>
-<% ]
-
-%>
-</ul></nav>
-
-
-</aside>
-
-<%= item/html %>
+<div class="col-md-4 side">
+<!-- Tags, etc. -->
+</div>

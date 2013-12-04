@@ -1,0 +1,19 @@
+<h2>Posts:</h2>
+<ul class="list-unstyled"><%
+
+	old-year: none
+
+	foreach [year month count] history [
+
+%>
+	<li><%! a (rejoin [%/news/ year "/" pad month 2]) %><%
+
+		prin rejoin [pick system/locale/months month ", " year]
+		old-year: year
+
+	%></a> (<%= pluralize "post" count %>)</li><%
+
+	]
+
+%>
+</ul>

@@ -24,9 +24,9 @@ queries: make queries [
 	drafts-for-user: "SELECT * FROM news WHERE status <> 'Live' AND author = ? ORDER BY created DESC"
 	pending-drafts: "SELECT * FROM news WHERE status = 'Ready' ORDER BY created DESC"
 
-	from: "SELECT * FROM news WHERE status = 'Live' AND id LIKE ? ORDER BY published DESC"
 	latest: "SELECT * FROM news WHERE status = 'Live' ORDER BY published DESC LIMIT 0,10"
 	latest-full: "SELECT i.*, d.html FROM news i JOIN documents d ON i.document = d.id WHERE i.status = 'Live' ORDER BY i.published DESC LIMIT 0,4"
+	from: "SELECT i.*, d.html FROM news i JOIN documents d ON i.document = d.id WHERE i.status = 'Live' AND i.id LIKE ? ORDER BY i.published DESC"
 
 	find-in-title: {
 		SELECT * FROM news
@@ -49,6 +49,17 @@ queries: make queries [
 	purge-author: "DELETE FROM authors_news WHERE item = ?"
 
 	update-id: "UPDATE news SET id = ? WHERE id = ?"
+
+	history: {
+		SELECT
+			YEAR(published) as year,
+			MONTH(published) AS month,
+			COUNT(*) AS count
+		FROM news
+		WHERE status = 'live'
+		GROUP BY year, month
+		ORDER BY year DESC, month DESC
+	}
 ]
 
 record: make record [
@@ -191,6 +202,8 @@ record: make record [
 		select owner [purge-author id]
 	]
 ]
+
+history: does [query-db/flat queries/history]
 
 latest-feed: func [header [block! object!]][
 	require %feeds/feeds.r

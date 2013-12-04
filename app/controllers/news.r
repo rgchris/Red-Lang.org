@@ -28,6 +28,7 @@ route () to %news [
 		title: "Red: News"
 		where %.html [
 			subhead: "Latest"
+			history: news/locals/history
 			collection: categorize select news [latest-full] func [item [object!]][
 				all [
 					item: item/get 'published
@@ -37,7 +38,7 @@ route () to %news [
 		]
 
 		where %.atom [
-			reject 500 "NOT READY YET, OK?"
+			redirect-to %/feeds/news.feed
 		]
 	]
 
@@ -82,6 +83,7 @@ route (year: integer! is between 2000x20000 month: opt integer! is between 1x12)
 		if date-next > now/date [date-next: none]
 
 		subhead: form-date date "for %B %Y"
+		history: news/locals/history
 
 		collection: reduce [
 			date select news [from form-date date "%Y/%m/%%"]

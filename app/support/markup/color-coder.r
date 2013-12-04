@@ -92,7 +92,8 @@ color-code: use [out emit whitelist emit-var emit-header rule value][
 				newline (emit "^/") |
 				#";" [thru newline | to end] new:
 					(emit-var none str new) |
-				[#"[" | #"("] (emit first str) rule |
+				#"[" (emit "_[" emit "_") |
+				#"(" (emit "(") rule |
 				[#"]" | #")"] (emit first str) break |
 				[8 hx | 4 hx | 2 hx] #"h" new:
 					(emit-var 0 str new) |
@@ -120,6 +121,7 @@ color-code: use [out emit whitelist emit-var emit-header rule value][
 		foreach [from to] reduce [ ; (join avoids the pattern)
 			; "&" "&amp;" "<" "&lt;" ">" "&gt;" "^(A9)2" "&copy;2"
 			join "-[" "-" "<" join "-" "]-" ">" join "-|" "-" {"}
+			join "_[" "_" "["
 		][
 			replace/all out from to
 		]
