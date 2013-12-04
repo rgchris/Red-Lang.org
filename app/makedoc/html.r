@@ -301,6 +301,15 @@ emit-grid: func [options [block! none!]][
 	emit <div>
 ]
 
+emit-code: func [code [string!]][
+	require %markup/color-coder.r
+
+	emit any [
+		attempt [color-code code]
+		[<pre class="code"> sanitize code </pre>]
+	]
+]
+
 ;-- Paragraph States
 initial: [
 	options: ()
@@ -329,7 +338,7 @@ normal: [
 	sect4: (feed emit-sect 4 data)
 	bullet: bullet2: bullet3: (feed emit [<ul> newline <li>] emit-inline data) in-bul (emit [</li> newline </ul>])
 	enum: enum2: enum3: (feed emit [<ol> newline <li>] emit-inline data) in-enum (emit [</li> newline </ol>])
-	code: (feed emit [<pre class="code"> sanitize data </pre>])
+	code: (feed emit-code data)
 	output: (feed emit data) ; to output html directly
 	define-term: (feed emit <dl class="short">) continue in-deflist (feed emit </dl>)
 	image: flickr: instagram: (feed emit <figure class="image">) continue media (feed emit </figure>)
