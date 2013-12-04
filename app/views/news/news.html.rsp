@@ -10,6 +10,7 @@
 <div class="col-md-3 col-md-offset-1 side"><% if user/moderator? [ %>
 <p><a class="btn btn-default" href="/news,new"><em>Create News Item</em></a></p><% ] %>
 <%= render/partial %history %>
+<%= render/partial %tag-cloud %>
 </div>
 
 </div><!-- /row -->

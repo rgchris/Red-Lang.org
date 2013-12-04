@@ -1,0 +1,12 @@
+<h2>Tags:</h2>
+<ul class="list-unstyled"><%
+
+	foreach [tag count] tag-cloud [
+
+%>
+	<li class="label label-default"><%! a news/tag/(tag) %><%= tag %></a> (<%= count %>)</li><%
+
+	]
+
+%>
+</ul>

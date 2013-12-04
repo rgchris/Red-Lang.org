@@ -29,6 +29,7 @@ route () to %news [
 		where %.html [
 			subhead: "Latest"
 			history: news/locals/history
+			tag-cloud: news/locals/tag-cloud
 			collection: categorize select news [latest-full] func [item [object!]][
 				all [
 					item: item/get 'published
@@ -84,6 +85,7 @@ route (year: integer! is between 2000x20000 month: opt integer! is between 1x12)
 
 		subhead: form-date date "for %B %Y"
 		history: news/locals/history
+		tag-cloud: news/locals/tag-cloud
 
 		collection: reduce [
 			date select news [from form-date date "%Y/%m/%%"]
@@ -94,6 +96,7 @@ route (year: integer! is between 2000x20000 month: opt integer! is between 1x12)
 route ("tag" tag: string! [wordify]) to %news [
 	get [
 		history: news/locals/history
+		tag-cloud: news/locals/tag-cloud
 
 		collection: categorize select news [by-tag tag] func [item [object!]][
 			all [

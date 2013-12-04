@@ -113,6 +113,10 @@ code {
 	.progress {max-width: 30em; background: rgba(0,0,0,0.2)}
 	.progress-bar {padding: 0 0.6em; text-align: left}
 
+	.label {padding: 0.35em 0.8em 0.25em;}
+	.label a, .label a:visited {text-decoration: none;}
+	.label-default {background: rgba(0,0,0,0.2);}
+
 /* -- **/
 
 /** Forms */

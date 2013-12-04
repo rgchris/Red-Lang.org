@@ -70,6 +70,10 @@ queries: make queries [
 		GROUP BY year, month
 		ORDER BY year DESC, month DESC
 	}
+
+	tag-cloud: {
+		SELECT tag, COUNT(*) AS count FROM tags_news GROUP BY tag ORDER BY tag
+	}
 ]
 
 record: make record [
@@ -231,6 +235,8 @@ connect-tags: func [item [string!] tags [block!] /local query slot][
 ]
 
 history: does [query-db/flat queries/history]
+
+tag-cloud: does [query-db/flat queries/tag-cloud]
 
 latest-feed: func [header [block! object!]][
 	require %feeds/feeds.r
