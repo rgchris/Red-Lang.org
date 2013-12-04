@@ -52,7 +52,9 @@ route (id: string! [wiki]) to %page [
 			page [
 				page/load-doc
 
-				; probe page/document/data
+				where %.rmd [
+					print page/document/get 'text
+				]
 			]
 			user/editor? [
 				page: select wiki 'new
