@@ -6,6 +6,8 @@ REBOL [
 	Template: %templates/red.rsp
 ]
 
+event "before" does [background: 'red]
+
 route () to %page [
 	verify [
 		where %,edit [user/editor?][

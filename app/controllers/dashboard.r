@@ -19,6 +19,7 @@ route () to %dashboard [
 
 	get [
 		title: "Dashboard"
+		background: 'navy
 
 		case/all [
 			user/moderator? [

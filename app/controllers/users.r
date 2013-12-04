@@ -6,6 +6,8 @@ REBOL [
 	Template: %templates/red.rsp
 ]
 
+event "before" does [background: 'navy]
+
 route () to %users [
 	get %,sign-in [
 		title: "Sign In"

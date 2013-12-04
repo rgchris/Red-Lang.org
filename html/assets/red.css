@@ -24,13 +24,9 @@ body {
 	padding-top: 70px;
 }
 
-body.navy {
-	background: url('paint.png') center top repeat-y, black url('denim-navy.png') left top repeat;
-}
-
-body.teal {
-	background: url('paint.png') center top repeat-y, black url('denim-teal.png') left top repeat;
-}
+body.red {background: url('paint.png') center top repeat-y, black url('denim-red.png') left top repeat;}
+body.navy {background: url('paint.png') center top repeat-y, black url('denim-navy.png') left top repeat;}
+body.teal {background: url('paint.png') center top repeat-y, black url('denim-teal.png') left top repeat;}
 
 @media (max-width: 979px) {
 /*	body {margin-top: 0;}*/

@@ -48,3 +48,5 @@ pending?: user/pending?
 target?: none
 
 analytics?: true
+
+background: 'indigo
