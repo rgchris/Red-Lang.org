@@ -238,7 +238,7 @@ emit-sliderocket: func [spec [block!] /local slides size width height][
 		height: width/y
 		width: either width/x = -1 ["100%"][width/x]
 		emit [
-			{^/<div class="sliderocket">^/<iframe src="} slides/src {" width="} width {" height="} height {" />^/</div>}
+			{^/<div class="sliderocket">^/<iframe src="} slides/src {" width="} width {" height="} height {"></iframe>^/</div>}
 		]
 	][
 		raise ["Invalid Sliderocket Spec: " sanitize mold spec]
