@@ -265,8 +265,9 @@ emit-video: func [spec [block!] /youtube /vimeo /local video][
 
 	either video: match spec [
 		id: issue! | url!
-		ratio: opt pair! is within [16x9 4x3]
+		ratio: opt pair!
 	][
+		any [find [4x3 16x9] video/ratio video/ratio: 16x9]
 		if url? video/id [video/id: get-video-id video/id]
 		video/id: join case [
 			youtube [https://youtube.com/embed/]
