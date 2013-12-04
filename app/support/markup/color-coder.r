@@ -92,7 +92,7 @@ color-code: use [out emit whitelist emit-var emit-header rule value][
 				newline (emit "^/") |
 				#";" [thru newline | to end] new:
 					(emit-var none str new) |
-				#"[" (emit "_[" emit "_") |
+				#"[" (emit "_[" emit "_") rule |
 				#"(" (emit "(") rule |
 				[#"]" | #")"] (emit first str) break |
 				[8 hx | 4 hx | 2 hx] #"h" new:
