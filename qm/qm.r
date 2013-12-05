@@ -3527,6 +3527,7 @@ context [
 			]
 
 			destroy: does [
+				on-delete
 				unless new? [delete-db owner id]
 				self
 			]

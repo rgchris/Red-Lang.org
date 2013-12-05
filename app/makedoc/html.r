@@ -13,8 +13,6 @@ with: func [
 	either only [block] :block
 ]
 
-press: :rejoin
-
 ;-- Helpers
 feed: does [emit newline]
 
@@ -51,9 +49,13 @@ emit-tablerow: func [para [block!] /header /local cell][
 	]
 ]
 
-emit-smarttag: func [spec [block!] /local name val tag errs rel][
+emit-smarttag: func [spec [block!]][
+	emit make-smarttag spec
+]
+
+make-smarttag: func [spec [block!] /local name val tag errs rel result falback][
 	errs: []
-	unless switch name: take tag: copy spec [
+	fallback: unless result: switch name: take tag: copy spec [
 		a link [
 			if tag: match tag [
 				href: file! | url! | email!
@@ -66,7 +68,7 @@ emit-smarttag: func [spec [block!] /local name val tag errs rel][
 					anchor: any [anchor form href]
 					all [rel rel: next form rel]
 					if email? href [href: join #[url! "mailto:"] href]
-					emit switch name [
+					switch name [
 						link [["<a" to-attr href to-attr rel to-attr title ">" sanitize anchor </a>]]
 						a [["<a" to-attr href to-attr rel to-attr title ">"]]
 					]
@@ -81,7 +83,7 @@ emit-smarttag: func [spec [block!] /local name val tag errs rel][
 				with tag [
 					anchor: any [anchor href]
 					href: url-encode/wiki href
-					emit ["<a" to-attr href ">" sanitize anchor </a>]
+					["<a" to-attr href ">" sanitize anchor </a>]
 				]
 			]
 		]
@@ -92,25 +94,26 @@ emit-smarttag: func [spec [block!] /local name val tag errs rel][
 				size: opt pair!
 			] errs [
 				use [width height] with/only tag [
+					size: any [size -1x-1]
 					width: all [size/x > -1 size/x]
 					height: all [size/y > -1 size/y]
-					emit ["<img" to-attr src to-attr width to-attr height to-attr alt { class="icon" />}]
+					["<img" to-attr src to-attr width to-attr height to-attr alt if name = 'icon [{ class="icon"}] { />}]
 				]
 			][
 				foreach [key reasons] errs [
 					foreach reason reasons [
-						emit ["[" sanitize reason "]"]
+						["[" sanitize reason "]"]
 					]
 				]
 			]
 		]
 		r [
-			emit {<b class="red">R</b>}
+			{<b class="red">R</b>}
 		]
 		progress [
 			if integer? val: take tag [
 				val: max 0 min 100 val
-				emit [
+				[
 					{<div class="progress"><div class="progress-bar }
 					case [
 						val < 25 ["progress-bar-danger"] val < 50 ["progress-bar-warning"]
@@ -123,8 +126,10 @@ emit-smarttag: func [spec [block!] /local name val tag errs rel][
 			]
 		]
 	][
-		emit {<span class="attention">!Unable to parse tag!</span>}
+		{<span class="attention">!Unable to parse tag!</span>}
 	]
+
+	press any [result fallback]
 ]
 
 emit-image: func [spec [block!] /local out image][
@@ -152,29 +157,6 @@ emit-image: func [spec [block!] /local out image][
 		emit [{<div class="img">^/} press out {^/</div>}]
 	][
 		raise ["Invalid Image Spec #" sanitize mold spec]
-	]
-]
-
-emit-square: use [rule counter finish code][
-	rule: [
-		(code: none counter: 0 finish: [])
-		some [
-			  <sb> (++ counter)
-			| </sb> (-- counter if zero? counter [finish: [to end]]) finish
-			| set code paren! (-- counter) to end break
-			| skip
-		]
-	]
-
-	does [
-		parse position rule
-		either all [code zero? counter][
-			emit-smarttag join [a] code
-			hold </a>
-		][
-			emit "["
-			hold ""
-		]
 	]
 ]
 
@@ -643,6 +625,8 @@ inline: [
 	default: continue paragraph
 ]
 
+in-code?: 0
+
 paragraph: [
 	:string! (emit value)
 	<b> (emit <b>) in-bold (emit </b>)
@@ -653,22 +637,31 @@ paragraph: [
 	<del> (emit <del>) in-del (emit </del>)
 	<ins> (emit <ins>) in-ins (emit </ins>)
 	<cite> (emit <cite>) in-cite (emit </cite>)
-	<var> <code> (emit <code>) in-code (emit </code>)
+	<var> <code>
+		(if 0 = in-code? [emit <code>] ++ in-code?) in-code
+		(-- in-code? if 0 = in-code? [emit </code>])
 	<apos> (emit "&#8216;") </apos> (emit "&#8217;")
 	<quot> (emit "&#8220;") </quot> (emit "&#8221;")
 	<initial> (emit <span class="initial">) in-initial (emit </span>)
-	<br/> <br /> (emit <br/>)
-	<sb> (emit-square) in-square (emit release)
+	<br> <br/> <br /> (emit <br/>)
+	<sb> (cursor/mark hold "[") in-link? (emit/at-mark release cursor/unmark)
 	</sb> (emit "]")
 	:integer! :char! (emit ["&#" to integer! value ";"])
 	:block! (emit-smarttag value)
+	:paren! (emit sanitize mold value)
 	</> ()
 	default: (emit "[???]")
 ]
 
-in-square: inherit paragraph [
-	</sb> (emit "]") return
-	:paren! return
+in-link?: inherit paragraph [
+	</sb> (hold "]") in-link (emit release)
+]
+
+in-link: [
+	:paren! (
+		change stack reduce [</a> make-smarttag join [a] value]
+	) return return
+	default: continue return return
 ]
 
 in-bold: inherit paragraph [</b> return </> continue return]

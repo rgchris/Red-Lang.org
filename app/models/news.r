@@ -99,6 +99,11 @@ record: make record [
 		set 'modified now
 	]
 
+	on-delete: does [
+		select owner [purge-tags id]
+		select owner [purge-author id]
+	]
+
 	name: title: none
 
 	text: does [

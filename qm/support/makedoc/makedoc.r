@@ -37,50 +37,51 @@ load-scanpara: use [para!][
 		in-word: [(in-word?: true)]
 		not-in-word: [(in-word?: false)]
 
-		string: use [mk ex][
+		string: use [mk ex then][
 			[
 				mk: {"} (
 					either error? try [
 						mk: load-next ex: mk
 					][
-						values: "="
+						then: [end skip]
 					][
 						ex: mk/2
+						then: [:ex]
 						values: reduce ['wiki mk/1]
 					]
-				) :ex
+				) then
 			]
 		]
 
-		block: use [mk ex][
+		block: use [mk ex then][
 			[
 				mk: #"[" (
 					either error? try [
 						mk: load-next ex: mk
 					][
-						ex
-						values: "="
+						then: [end skip]
 					][
 						ex: mk/2
 						values: mk/1
+						then: [:ex]
 					]
-				) :ex ; ]
+				) then ; ]
 			]
 		]
 
-		paren: use [mk ex][
+		paren: use [mk ex then][
 			[
 				mk: #"(" (
 					either error? try [
 						mk: load-next ex: mk
 					][
-						ex
-						values: "="
+						then: [end skip]
 					][
 						ex: mk/2
 						values: mk/1
+						then: [:ex]
 					]
-				) :ex ; )
+				) then ; )
 			]
 		]
 
@@ -90,7 +91,6 @@ load-scanpara: use [para!][
 			clear para
 			parse/all paragraph rule
 			new-line/all para false
-			; probe para
 			copy para
 		]
 	]
@@ -216,7 +216,7 @@ fsm!: context [
 						|
 						none
 					] [
-						'return (return-state)
+						some ['return (return-state)]
 						|
 						'rewind? copy val some word! (
 							if not foreach word val [
@@ -286,23 +286,23 @@ load-emitter: use [emitter! para!][
 			]
 		]
 
-		init-emitter: func [doc] [
-			sections/reset
-
-			foreach [word str] doc [
-				if w: find [sect1 sect2 sect3 sect4] word [
-					w: index? w
-					if w <= toc-levels [
-						sn: sections/step w
-						insert insert tail toc capture [make-heading/toc w sn copy/deep str] "<br>^/"
-					]
-				]
-			]
-
-			sections/reset
-
-			if no-title [emit toc state: normal]
-		]
+		; init-emitter: func [doc] [
+		; 	sections/reset
+		; 
+		; 	foreach [word str] doc [
+		; 		if w: find [sect1 sect2 sect3 sect4] word [
+		; 			w: index? w
+		; 			if w <= toc-levels [
+		; 				sn: sections/step w
+		; 				insert insert tail toc capture [make-heading/toc w sn copy/deep str] "<br>^/"
+		; 			]
+		; 		]
+		; 	]
+		; 
+		; 	sections/reset
+		; 
+		; 	if no-title [emit toc state: normal]
+		; ]
 
 		toc: none
 
@@ -340,13 +340,27 @@ load-emitter: use [emitter! para!][
 			][url]
 		]
 
-		hold-values: []
-		hold: func [value [any-type!]][insert hold-values value value]
-		release: does [take hold-values]
+		stack: []
+		hold: func [value [any-type!]][insert stack value value]
+		release: does [take stack]
 
-		out: {}
-		emit: func [value][
-			insert tail out reduce value
+
+		cursor: context [
+			stack: []
+
+			here: out: {}
+			reset: does [clear stack here: out: copy {<!-->}]
+			mark: does [insert stack here here: copy {}]
+			unmark: does [here: insert take stack head here]
+			close: does [while [not empty? stack][unmark] copy out]
+		]
+
+		emit: func [value /at-mark][
+			either at-mark [
+				cursor/stack/1: insert cursor/stack/1 reduce value
+			][
+				cursor/here: insert cursor/here reduce value
+			]
 		]
 
 		states: data: word: value: options: none
@@ -386,22 +400,18 @@ load-emitter: use [emitter! para!][
 
 		outline: make fsm! []
 
-		outline-do: func [doc [block!] state [block!]][
-			outline/init state
+		generate: func [doc [block!]] [
+			clear stack
+			cursor/reset
+			sections/reset
+			outline/init get in states 'initial
 			forskip doc 2 [
 				position: doc
 				set [word data] doc
 				outline/event to set-word! word
 			]
 			outline/end
-		]
-
-		generate: func [doc [block!]] [
-			clear hold-values
-			clear out
-			sections/reset
-			outline-do doc get in states 'initial
-			copy out
+			cursor/close
 		]
 	]
 
@@ -446,7 +456,6 @@ resolve: use [resolve-path][
 		options
 	]
 ]
-
 
 load-doc: use [document!][
 	document!: context [

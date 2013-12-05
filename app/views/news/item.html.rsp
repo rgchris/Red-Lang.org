@@ -12,7 +12,7 @@
 
 <div class="col-md-4 side"><% some item/document/tags [ %>
 <ul class="list-unstyled"><% foreach tag item/document/tags [ %>
-	<li><%! a news/tag/(wordify tag) /label /label-default %><%== tag %></a></li><% ] %>
+	<li class="label label-default"><%! a news/tag/(wordify tag) %><%== tag %></a></li><% ] %>
 </ul><% ] %><%=
 
 	if user/blogger? [

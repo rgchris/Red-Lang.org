@@ -8,7 +8,7 @@ REBOL [
 
 route (id: string! [wiki]) to %note [
 	verify [
-		user/organizer? [
+		user/moderator? [
 			reject 403 %errors/notauthorized
 		]
 	]

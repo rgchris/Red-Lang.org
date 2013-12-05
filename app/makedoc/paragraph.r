@@ -8,7 +8,11 @@ REBOL [
 not-in-word any [
 	  some space (emit copy " ") not-in-word
 	| copy text some alphanum (emit text) in-word
-	| newline (emit <br />) not-in-word
+	| newline (emit <br>) not-in-word
+	| #"\" copy char [
+		  "\" | "`" | "*" | "_" | "{" | "}" | "[" | "]" | "(" | ")"
+		| "#" | "=" | "+" | "-" | "." | "!" | "^"" | "'"
+	] (emit char/1)
 	| #"=" [
 		  block (emit values) in-word
 		| string (emit values) in-word
@@ -39,17 +43,18 @@ not-in-word any [
 		| "c." (emit </cite>)
 		| "." (emit </>)
 	]
-	| #"(" [[
+	| #"(" [
+		in-word
 		  "c)" (emit 169)
 		| "r)" (emit 174)
 		| "o)" (emit 176)
 		| "tm)" (emit 8482)
 		| "e)" (emit 8364)
-
-	] in-word | (emit #"(") not-in-word]
+		| (emit copy "(") not-in-word
+	]
 	| #"[" copy char number "]" (emit reduce ['link to-issue char])
 	| #"[" (emit <sb>)
-	| "]" opt [paren (emit values) | (emit </sb>)] in-word
+	| "]" (emit </sb>) opt [paren (emit values)] in-word
 	| #"*" [
 		  "**" (emit/after <strong> </strong>)
 		| "*" (emit/after <b> </b>)
@@ -64,10 +69,9 @@ not-in-word any [
 	| #"^"" (emit/after <quot> </quot>) in-word
 	| #"." ".." (emit 8230) in-word
 	| #"-" ["--" (emit 8212) | "-" (emit 8211)] in-word
-	| "\" copy char ["\" | "(" | "=" | "[" | "^"" | "'" | "." | "-" | "*"] (emit to-char char)
 	| copy char ascii (emit char) in-word
-	| copy char ucs (emit to integer! char/1) in-word
-	| copy char utf-8 (emit get-ucs-code char) in-word
+	| copy char ucs (emit to integer! char/1) in-word ; Rebol 3
+	| copy char utf-8 (emit get-ucs-code char) in-word ; Rebol 2
 	| extended (emit "[???]")
 	| skip
 ]
