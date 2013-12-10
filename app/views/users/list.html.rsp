@@ -1,7 +1,5 @@
-<div class="page-header">
-	<div class="container">
-		<h1>User Listing</h1>
-		<h2>Page <%== page/current %> of <%== page/last %><b><%
+<h1>User Listing</h1>
+<h2>Page <%== page/current %> of <%== page/last %><b><%
 
 sp: " &#8212; "
 
@@ -17,12 +15,7 @@ case/all [
 ]
 
 %></b></h2>
-	</div>
-</div>
 
-<div class="container">
-
-<div class="table">
 <table class="table table-hover">
 <thead><tr>
 	<th>Name</th>
@@ -49,6 +42,3 @@ foreach profile page/records [
 	
 %></tbody>
 </table>
-</div>
-
-</section>
