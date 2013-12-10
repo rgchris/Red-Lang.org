@@ -90,13 +90,28 @@ code {
 /** Button */
 
 	.btn, .btn:visited, .btn:hover {
-		background-color: #333;
-		font-family: 'Quattrocentro', Helvetica, Arial, sans-serif;
+		background-color: rgba(51,68,102,1);
+		background-image: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(0,0,34,0.3));
+		font-family: 'Quattrocento Sans', Helvetica, Arial, sans-serif;
 		font-weight: bold;
 		color: white;
 		text-decoration: none;
-		border: 2px solid rgba(255,255,255,0.1);
+		text-transform: uppercase;
+		border: 1px solid rgba(255,255,255,0.6);
 		text-shadow: 0 1px 0 rgba(0,0,0,0.8);
+		box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 -1px 6px rgba(0,0,0,0.5);
+	}
+
+	.btn em {font-weight: bold; font-style: normal; padding: 0 0.5em;}
+
+	.btn:hover {
+		background-image: linear-gradient(180deg, rgba(255,255,255,0.3), transparent);
+	}
+
+	.btn:active {
+		border-color: #ff0;
+		background-image: none;
+		box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 	}
 
 	.btn.btn-small {
@@ -104,9 +119,9 @@ code {
 	}
 
 /*	.btn-default {background: #555;} .btn-default:hover {background: #666;}*/
-	.btn.btn-primary {background: #06a;} .btn.btn-warning:hover {background: #d80;}
-	.btn.btn-warning {background: #c70;} .btn.btn-warning:hover {background: #d80;}
-	.btn.btn-danger {background: #c00;} .btn.btn-danger:hover {background: #d00;}
+	.btn.btn-primary {background-color: #06a;}
+	.btn.btn-warning {background-color: #c70;}
+	.btn.btn-danger {background-color: #c00;}
 
 	.dropdown-menu {padding: 0.8em;}
 
@@ -220,6 +235,51 @@ code {
 /*	.month a.short:hover {color: #08c;}*/
 
 	.byline b {color: #c00;}
+
+/* -- **/
+
+/** Media */
+
+	figure {
+		background: black;
+		background: rgba(0,0,0,0.5);
+		padding: 0.1em 0.7em;
+		border-radius: 0.6em;
+	}
+
+	figure div, figure figcaption {
+		margin: 0.6em 0;
+	}
+
+	figure img {
+		width: 100%;
+		max-width: 100%;
+		height: auto;
+	}
+
+	figure.media {
+		position: relative;
+		padding-bottom: 56.25%;
+		padding-top: 30px;
+		margin: 1em auto;
+		height: 0;
+		overflow: hidden;
+	}
+
+	figure.media div {
+		position: absolute;
+		top: 0.6em; bottom: 0.6em;
+		left: 0.6em; right: 0.6em;
+		margin: 0;
+	}
+
+	figure.media iframe,  
+	figure.media object,  
+	figure.media embed {
+		border: 0;
+		width: 100%;
+		height: 100%;
+	}
 
 /* -- **/
 

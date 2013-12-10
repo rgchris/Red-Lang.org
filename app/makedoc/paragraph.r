@@ -52,7 +52,7 @@ not-in-word any [
 		| "e)" (emit 8364)
 		| (emit copy "(") not-in-word
 	]
-	| #"[" copy char number "]" (emit reduce ['link to-issue char])
+	; | #"[" copy char number "]" (emit reduce ['link to-issue char])
 	| #"[" (emit <sb>)
 	| "]" (emit </sb>) opt [paren (emit values)] in-word
 	| #"*" [

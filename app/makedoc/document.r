@@ -90,6 +90,7 @@ some [ ;here: (print here)
 		| "vimeo.com" url-block (emit vimeo values)
 		| "flickr.com" url-block (emit flickr values)
 		| "app.sliderocket.com" url-block (emit sliderocket values)
+		| "twitter.com" url-block (emit twitter values)
 	]
 
 	;-- load and embed fragments found in %/templates/fragments/ folder

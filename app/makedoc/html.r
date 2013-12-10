@@ -161,34 +161,51 @@ emit-image: func [spec [block!] /local out image][
 ]
 
 emit-flickr: func [spec [block!] /local photo][
-	require/args %mashup/flickr.r settings/connections/(oauth:flickr.com)
-	either all [
-		photo: match/loose spec [id: issue! | url!]
+	if verify [
+		photo: match/loose spec [
+			id: issue! | url!
+			titled: opt 'titled
+		][
+			raise ["Flickr Spec is Invalid #" sanitize mold spec]
+		]
+
 		switch type?/word photo/id [
-			issue! [parse/all photo/id amend [some digit]]
-			url! [
-				with photo [
-					parse/all id amend [
-						"http://www.flickr.com/photos/"
-						thru "/" copy id some digit to end
-						(id: to-issue id)
-					]
+			issue! [
+				if parse/all photo/id amend [some digit][
+					photo/id: join http://www.flickr.com/photos/anon/ photo/id
 				]
 			]
+			url! [
+				parse/all photo/id amend [
+					"http://www.flickr.com/photos/"
+					thru "/" some digit to end
+				]
+			]
+		][
+			raise ["Bad Flickr Image Reference #" sanitize mold spec]
 		]
-		photo: flickr/get-info-for photo/id
-	][
-		emit with/only photo/photo [
-			{<div class="flickr img">^/<a href="} urls/url/1/_content {">}
-			{<img src="http://farm} farm {.staticflickr.com/} server {/} id {_} secret {_z.jpg" alt="} title {"/>}
-			{</a>^/</div>}
+		
+		photo: attempt [
+			require %markup/json.r
+			make photo load-json join http://www.flickr.com/services/oembed.json? to-webform join [url] photo/id
+		][
+			raise "Could not recover photo information from Flickr"
 		]
 	][
-		raise ["Invalid Flickr Spec #" sanitize mold spec]
+		; emit mold photo
+		photo/title: rejoin ["&#8216;" photo/title "&#8217; by " photo/author_name]
+
+		emit [
+			{<div class="flickr img">^/<a href="} photo/web_page {">}
+			{<img src="} photo/url {" width="} photo/width {" height="} photo/height
+			{" alt="} photo/title {" /></a>^/</div>}
+			if photo/titled [join "^/" [<figcaption> photo/title </figcaption>]]
+		]
 	]
 ]
 
 emit-instagram: func [spec [block!] /local photo href src alt][
+	http://instagram.com/developer/embedding/
 	either all [
 		photo: match/loose spec [
 			id: url!
@@ -196,7 +213,7 @@ emit-instagram: func [spec [block!] /local photo href src alt][
 			alt: opt string!
 		]
 		parse/all photo/id amend [
-			"http://instagram.com/p/" copy src some alphanum opt "/"
+			"http://instagram.com/p/" copy src ident opt "/"
 		]
 	][
 		href: photo/id
@@ -258,6 +275,37 @@ emit-video: func [spec [block!] /youtube /vimeo /local video][
 		emit [{<div class="tube">^/<iframe type="text/html" src="} video/id {"></iframe>^/</div>}]
 	][
 		raise ["Invalid Video Spec #" sanitize mold spec]
+	]
+]
+
+emit-twitter: func [spec [block!] /local tweet][
+	if verify [
+		tweet: match/loose spec [
+			url: url! | issue!
+		][
+			raise ["Invalid Twitter Spec #" sanitize mold spec]
+		]
+
+		parse/all either url? tweet/url [tweet/url][
+			tweet/url: join http://twitter.com/anon/status/ tweet/url
+		] amend [
+			"http" opt "s" "://" opt "www." "twitter.com/" ident "/status/" some digit
+			[end | "?" to end]
+		][
+			raise ["Invalid Twitter URL: " sanitize tweet/url]
+		]
+
+		tweet: attempt [
+			require %markup/json.r
+			load-json join http://api.twitter.com/1/statuses/oembed.json? to-webform tweet
+			; load-json join http://api.embed.ly/1/oembed? to-webform tweet
+			; load-json join http://noembed.com/embed? to-webform tweet
+		][
+			raise ["Could Not Recover Tweet: " sanitize tweet/url]
+		]
+	][
+		clear find/last/tail tweet/html </blockquote>
+		emit [<figure> tweet/html </figure>]
 	]
 ]
 
@@ -324,8 +372,6 @@ normal: [
 	code: (feed emit-code data)
 	output: (feed emit data) ; to output html directly
 	define-term: (feed emit <dl class="short">) continue in-deflist (feed emit </dl>)
-	image: flickr: instagram: (feed emit <figure class="image">) continue media (feed emit </figure>)
-	youtube: vimeo: sliderocket: (feed emit <figure class="media">) continue media (feed emit </figure>)
 	break: (feed emit <hr />)
 	figure-in: (feed emit <figure>) in-figure (feed emit </figure>)
 	figure-out: (raise "Unbalanced Figure")
@@ -372,9 +418,9 @@ normal: [
 		(feed emit </div>)
 	indent-out: (raise "Unbalanced /Indent")
 	grid-in:
-		(feed emit {<div class="row"><div class="span4">})
-		in-grid
-		(feed emit {</div></div>})
+		(feed emit <div class="row grid">)
+		continue in-grid
+		(feed emit </div>)
 	grid-out: (raise "Unbalanced /Grid")
 	quote-in:
 		(feed emit either find any [data []] 'pullquote [<blockquote class="pullquote">][<blockquote>])
@@ -390,12 +436,16 @@ normal: [
 	; default: (emit [<p> uppercase/part form word 1 " Unknown</p>"])
 
 	donate: (feed emit render/partial %fragments/donate)
+
+	image: flickr: instagram: (feed emit <figure class="image">) continue media (feed emit </figure>)
+	youtube: vimeo: sliderocket: (feed emit <figure class="media">) continue media (feed emit </figure>)
+	twitter: (feed emit-twitter data)
 ]
 
 in-block: inherit normal [
 	sect1: (feed emit <h1> emit-inline data emit </h1>)
 	sect2: (feed emit <h2> emit-inline data emit </h2>)
-	grid-in: grid-out: (raise "Grid is top-level only.")
+	grid-in: (feed emit <hr/>) in-nested-grid (feed emit <hr/>)
 	cols-in: cols-out: (raise "Columns are top-level only.")
 ]
 
@@ -606,9 +656,19 @@ in-indent: inherit in-block [
 	indent-out: return
 ]
 
-in-grid: inherit in-block [
+in-grid: [
+	grid-in: next: (feed emit <div class="col-md-4 col-sm-6">) in-grid-cell (feed emit </div>)
+]
+
+
+in-grid-cell: inherit in-block [
+	next: continue return
+	grid-out: return return
+]
+
+in-nested-grid: inherit in-block [
+	next: (feed emit <hr/>)
 	grid-out: return
-	next: (emit {^/</div><div class="span4">^/})
 ]
 
 in-sect1: inherit normal [
