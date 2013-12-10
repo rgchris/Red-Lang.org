@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>Crashes</title>
+	<link rel="stylesheet" href="http://reb4.me/s/anywhere.css" type="text/css" media="screen" title="Anywhere" charset="utf-8" />
+</head>
+<body>
+	<h1>Crashes</h1>
+	<p><%! form delete %/crashes %><button style="padding: 0.3em 0.8em; border-radius: 0.3em; background: #222; color: #fff; border: 0; cursor: pointer;" type="submit">Clear</button></form></p>
+	<dl><% foreach crash crashes [ %>
+		<dt><%! time (crash/1) "%A %B %e%i at %h:%M:%S%p" %><br/><%== crash/2 %>&#8212;<%== crash/3 %>&#8212;<%== crash/4 %></dt>
+		<dd><pre><code><%== crash/5 %></code></pre></dd>
+	<% ] %></dl>
+</body>
+</html>

@@ -7,7 +7,7 @@
 <div class="row">
 
 <div class="col-md-8 main">
-<%= item/html %>
+<%= item/document/render %>
 </div>
 
 <div class="col-md-4 side"><% some item/document/tags [ %>

@@ -69,17 +69,32 @@ color-code: use [out emit whitelist emit-var rule value][
 		]
 	]
 
-	rule: use [str new rule hx percent][
-		hx: charset "0123456789abcdefABCDEF"
-		
-		percent: use [dg nm sg sp ex][
-			dg: charset "0123456789"
-			nm: [dg any [some dg | "'"]]
-			sg: charset "-+"
-			sp: charset ".,"
-			ex: ["E" opt sg some dg]
+	rule: use [
+		str new val rule
+		hex alpha digit sign space?
+		number percent word
+	][
+		space?: use [mark][
+			[mark: [" " | newline | tab | "," | end] :mark]
+		]
 
-			[opt sg [nm opt [ex | sp nm opt ex] | sp nm opt ex] "%"]
+		alpha: charset [#"a" - #"z"]
+		digit: charset "0123456789"
+		hex: charset "0123456789abcdefABCDEF"
+		sign: charset "-+"
+
+		number: [digit any [digit | "'"]]
+
+		word: use [word][
+			word: union union alpha digit charset "-_!"
+			[alpha any word]
+		]
+
+		percent: use [sp ex][
+			sp: charset ".,"
+			ex: ["E" opt sign some digit]
+
+			[opt sign [number opt [ex | sp number opt ex] | sp number opt ex] "%"]
 		]
 
 		rule: [
@@ -91,9 +106,21 @@ color-code: use [out emit whitelist emit-var rule value][
 					(emit-var none str new) |
 				[#"[" | #"("] (emit first str) rule |
 				[#"]" | #")"] (emit first str) break |
-				[8 hx | 4 hx | 2 hx] #"h" new:
-					(emit-var 0 str new) |
-				percent new: (emit-var 0.1 str new) |
+
+				; non-Rebol 2 values:
+				[8 hex | 4 hex | 2 hex] #"h" new:
+					(emit-var 0 str new) | ; Red - Hex Integer! notation
+				percent new: (emit-var 0.1 str new) | ; Rebol 3 Percent!
+				":" new: space? [thru newline | to end] new: (emit-var none str new) | ; Commentize isolated colons
+				"," new: space? (emit ",") | ; Ignore commas
+				"<" word ">:" [thru newline | to end] new: (emit-var none str new) | ; Commentize 'set-tag-words', used in Red docs
+				; copy val word new: "," (emit-var to word! val str new emit ",") | ; Ignore words followed by commas
+				opt sign number [
+					2 10 alpha new: space? (emit-var 0 str new) ; Ignore 'measure!' types
+					| opt ["." number] 2 10 alpha new: space? (emit-var 1.0 str new)
+				] |
+
+				; Rebol 2 values:
 				skip (
 					set [value new] load/next str
 					emit-var :value str new
