@@ -4,16 +4,20 @@ REBOL [
 	Purpose: "HTML Parser and Document API for Rebol"
 	Author: "Christopher Ross-Gill"
 	Home: http://www.ross-gill.com/page/XML_and_REBOL
-	Date: 18-Apr-2013
-	Version: 0.1.0
+	Date: 6-Dec-2013
+	Version: 0.1.1
+	History: [
+		0.1.0 18-Apr-2013 "First Version"
+		0.1.1  6-Dec-2013 "Add GET-BY-CLASS"
+	]
 	Type: 'module
 	Exports: [load-html]
 	MezzModules: wrt://system/support/power-mezz/
 	; MezzModules: %/Volumes/Sandbox/Downloads/power-mezz-built-1.0.0/
 ]
 
-do header/mezzmodules/mezz/module.r
-load-module/from header/mezzmodules
+do system/script/header/mezzmodules/mezz/module.r
+load-module/from system/script/header/mezzmodules
 
 module [
 	Title: "Load HTML"
@@ -160,23 +164,23 @@ module [
 
 			parent: has [branch]["Need Branch" none]
 
-			children: has [hits at][
-				hits: copy []
-				parse case [
-					block? value [value] string? value [reduce [%.txt value]] none? value [[]]
-				][
-					any [issue! skip]
-					any [at: [tag! | file!] skip (append hits make-node at)]
+			children: has [at][
+				collect [
+					parse case [
+						block? value [value] string? value [reduce [%.txt value]] none? value [[]]
+					][
+						any [issue! skip]
+						any [at: [tag! | file!] skip (keep make-node at)]
+					]
 				]
-				hits
 			]
 
-			attributes: has [hits at][
-				hits: copy []
-				parse either block? value [value][[]] [
-					any [at: issue! skip (append hits make-node at)] to end
+			attributes: has [at][
+				collect [
+					parse either block? value [value][[]] [
+						any [at: issue! skip (keep make-node at)] to end
+					]
 				]
-				hits
 			]
 
 			clone: does [make-node tree]
