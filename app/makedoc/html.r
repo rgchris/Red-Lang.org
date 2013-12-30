@@ -627,6 +627,7 @@ in-figure: [
 	image: flickr: instagram: youtube: vimeo: sliderocket: continue media
 	para: (feed emit <figcaption> emit-inline data emit </figcaption>)
 	group-in: (feed emit <figcaption>) in-group (feed emit </figcaption>)
+	donate: (feed emit render/partial %fragments/donate)
 	default: (raise "Content Misplaced in Figure")
 	figure-out: return
 ]
