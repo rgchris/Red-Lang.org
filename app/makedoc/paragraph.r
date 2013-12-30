@@ -5,6 +5,25 @@ REBOL [
 	Type: 'paragraph
 ]
 
+(
+	literal: use [code][
+		code: complement charset "\`"
+
+		[any [some code | "\" ["\" | "`"]]]
+	]
+
+	emit-code: func [code][
+		emit <code>
+		emit foreach [from to][
+			"\\" "\"
+			"\`" "`"
+		][
+			replace/all code from to
+		]
+		emit </code>
+	]
+)
+
 not-in-word any [
 	  some space (emit copy " ") not-in-word
 	| copy text some alphanum (emit text) in-word
@@ -64,7 +83,7 @@ not-in-word any [
 	| #"<" (emit #"<") | #">" (emit #">") | #"&" (emit #"&")
 	; | #"~" (emit/after <code> </code>)
 	; | #"*" (emit/after <b> </b>)
-	| #"`" (emit/after <code> </code>) in-word
+	| #"`" copy text literal #"`" (emit-code text) in-word
 	| #"'" (emit/after <apos> </apos>) in-word
 	| #"^"" (emit/after <quot> </quot>) in-word
 	| #"." ".." (emit 8230) in-word

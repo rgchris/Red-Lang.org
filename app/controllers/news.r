@@ -73,8 +73,8 @@ route (year: integer! is between 2000x20000 month: opt integer! is between 1x12)
 			1000 > abs date/year - year
 			date/year: year
 		]
-		date/month: any [month date/month]
 		date/day: 1
+		date/month: any [month date/month]
 		if now/date < date [date: now]
 
 		date-back: date-next: date
@@ -83,7 +83,7 @@ route (year: integer! is between 2000x20000 month: opt integer! is between 1x12)
 		date-next/month: date-next/month + 1
 		if date-next > now/date [date-next: none]
 
-		subhead: form-date date "for %B %Y"
+		title: join "Red: News " subhead: form-date date "for %B %Y"
 		history: news/locals/history
 		tag-cloud: news/locals/tag-cloud
 
@@ -97,6 +97,8 @@ route ("tag" tag: string! [wordify]) to %news [
 	get [
 		history: news/locals/history
 		tag-cloud: news/locals/tag-cloud
+
+		title: join "Red: News for " unwordify tag
 
 		collection: categorize select news [by-tag tag] func [item [object!]][
 			all [

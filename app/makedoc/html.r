@@ -710,6 +710,9 @@ paragraph: [
 	:block! (emit-smarttag value)
 	:paren! (emit sanitize mold value)
 	</> ()
+	</b> </u> </i> </q> </dfn> </del> </ins> </cite> </var> </code> (
+		emit ["<!-- " to string! value " -->"]
+	)
 	default: (emit "[???]")
 ]
 
