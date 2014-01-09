@@ -50,7 +50,10 @@ system/error/user/type: "QuarterMaster Error"
 range!: :pair! ; until REBOL v3
 else: true ; for 'case statements
 
-qm/profile: system/script/args
+qm/profile: any [
+	system/script/args
+	system/script/parent/header
+]
 
 settings: qm/settings: construct/with any [
 	qm/profile/settings
@@ -186,12 +189,6 @@ context [
 context [
 	push: func [stack [series! port!] value [any-type!] /only][
 		head either only [insert/only stack :value][insert stack :value]
-	]
-
-	pop*: func [stack [series! port!] /local val][
-		val: pick stack 1
-		remove stack
-		:val
 	]
 
 	append: func [
@@ -474,11 +471,41 @@ context [
 	wiki: [some [wiki* | utf-8]]
 	ws*: white-space: [some ws]
 
+	encode-utf8: func [
+		"Encode a code point in UTF-8 format" 
+		char [integer!] "Unicode code point"
+	][
+		as-string to binary! reduce case [
+			char <= 127 [[char]]
+
+			char <= 2047 [[
+				char and 1984 / 64 + 192 
+				char and 63 + 128
+			]]
+
+			char <= 65535 [[
+				char and 61440 / 4096 + 224 
+				char and 4032 / 64 + 128 
+				char and 63 + 128
+			]]
+
+			char <= 2097151 [[
+				char and 1835008 / 262144 + 240 
+				char and 258048 / 4096 + 128 
+				char and 4032 / 64 + 128 
+				char and 63 + 128
+			]]
+
+			; true [[]]
+			true [[40 63 41]]
+		]
+	]
+
 	amend: func [rule [block!]][
 		bind rule 'self
 	]
 
-	export [get-ucs-code decode-utf amend]
+	export [get-ucs-code decode-utf encode-utf8 amend]
 ]
 
 ;--## STRING HELPERS
@@ -826,16 +853,6 @@ context [
 		head change copy "00.000000" find/last/tail form seconds ":"
 	]
 
-	to-epoch-time: func [date [date!]][
-		; date/time: date/time - date/zone
-		date: form any [
-			attempt [to integer! difference date 1-Jan-1970/0:0:0]
-			date - 1-Jan-1970/0:0:0 * 86400.0
-		]
-		clear find/last date "."
-		date
-	]
-
 	to-iso-week: use [get-iso-year][
 		get-iso-year: func [year [integer!] /local d1 d2][
 			d1: to-date join "4-Jan-" year
@@ -857,6 +874,16 @@ context [
 		]
 	]
 
+	to-epoch-time: func [date [date!]][
+		; date/time: date/time - date/zone
+		date: form any [
+			attempt [to integer! difference date 1-Jan-1970/0:0:0]
+			date - 1-Jan-1970/0:0:0 * 86400.0
+		]
+		clear find/last date "."
+		date
+	]
+
 	date-codes: [
 		#"a" [copy/part pick system/locale/days date/weekday 3]
 		#"A" [pick system/locale/days date/weekday]
@@ -866,6 +893,7 @@ context [
 		#"d" [pad date/day 2]
 		#"D" [date/year #"-" pad date/month 2 #"-" pad date/day 2]
 		#"e" [date/day]
+		#"f" [find/tail pad-precise time/second "."]
 		#"g" [pad (second to-iso-week date) // 100 2]
 		#"G" [second to-iso-week date]
 		#"h" [time/hour + 11 // 12 + 1]
@@ -878,7 +906,8 @@ context [
 		#"M" [pad time/minute 2]
 		#"p" [pick ["am" "pm"] time/hour < 12]
 		#"P" [pick ["AM" "PM"] time/hour < 12]
-		#"S" [pad round time/second 2]
+		#"s" [to-epoch-time date]
+		#"S" [pad to integer! time/second 2]
 		#"t" [#"^-"]
 		#"T" [pad time/hour 2 #":" pad time/minute 2 #":" pad round time/second 2]
 		#"u" [date/weekday]
