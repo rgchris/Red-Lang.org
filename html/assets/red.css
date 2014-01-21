@@ -87,6 +87,11 @@ code {
 
 #fork_me {position: absolute; top: 0; right: 0;}
 
+pre.code.prettyprint {
+	padding: 1em 1.5em;
+	border: 0;
+}
+
 /** Button */
 
 	.btn, .btn:visited, .btn:hover {
@@ -306,7 +311,7 @@ code {
 		text-shadow: 0 0 6px #fff;
 	}
 	.code.rebol a:active, .code.rebol a:hover {color: #fff;}
-	.code.rebol var {color: #ffd; font-weight: normal; font-style: normal;}
+	.code.rebol span {color: #ffd; font-weight: normal; font-style: normal;}
 	.code.rebol .dt-function,
 	.code.rebol .dt-native {color: #fe8;}
 	.code.rebol .dt-datatype {color: #fe8;}

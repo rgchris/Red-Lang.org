@@ -336,8 +336,8 @@ emit-code: func [code [string!]][
 	require %markup/color-coder.r
 
 	emit any [
-		attempt [color-code code]
-		[<pre class="code"> sanitize code </pre>]
+		; attempt [color-code code]
+		[<pre class="code rebol prettyprint lang-rebol"> sanitize code </pre>]
 	]
 ]
 
