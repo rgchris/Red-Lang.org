@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/assets/red.css" media="screen" title="Red">
 <link rel="alternate" href="/feeds/news.feed" type="application/atom+xml" title="Red Latest">
 <script src="//code.jquery.com/jquery.js"></script>
+<script src="/assets/switcher.js"></script>
 </head>
 
 <body class="<%= form background %>">

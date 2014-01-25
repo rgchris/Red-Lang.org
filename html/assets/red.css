@@ -28,6 +28,12 @@ body.red {background: url('paint.png') center top repeat-y, black url('denim-red
 body.navy {background: url('paint.png') center top repeat-y, black url('denim-navy.png') left top repeat;}
 body.teal {background: url('paint.png') center top repeat-y, black url('denim-teal.png') left top repeat;}
 
+body.light {
+	background: #ccd url('paint.png') center top repeat-y;
+	color: black;
+	text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+}
+
 @media (max-width: 979px) {
 /*	body {margin-top: 0;}*/
 }
@@ -45,9 +51,24 @@ a:hover {
 	text-shadow: 0 0 6px rgba(153,0,0,1);
 }
 
+.light a, .light a:visited, .light a:hover {
+	color: #b00; text-decoration: none;
+	text-shadow: inherit;
+}
+
+.light a:hover {
+	text-decoration: underline;
+	text-shadow: 0 1px 6px rgba(255,221,221,0.9);
+}
+
 b.red {
 	text-shadow: 0 1px 0 black, 0 0 4px red;
 	font-weight: bold;
+}
+
+.light b.red {
+	font-weight: inherit;
+	text-shadow: 0 1px 0 #fdd;
 }
 
 h1 {
@@ -56,41 +77,54 @@ h1 {
 	text-shadow: 1px 2px 0 rgba(0,0,0,0.7);
 }
 
+.light h1 {
+	text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+}
+
 h2 {
 	font: bold 20px/1.41 "Quattrocento", "Georgia", serif;
 }
 
 h4 {font-family: "Quattrocento Sans", "Helvetica", "Arial", sans-serif;}
 
-pre, code {
-	font: 1em/1.2 "Ubuntu Mono", fixed;
-	color: inherit;
-}
+/** Code */
 
-pre.code, .well, #_log pre {
-	background: rgba(0,0,0,0.2);
-	padding: 1em 1.5em;
-	border-radius: 0.3em;
-	border: 0;
-	box-shadow: inset 1px 1px 6px rgba(0,0,0,0.3), 0 0 40px rgba(0, 0, 0, 0.08) inset, 1px 1px 0 rgba(255,255,255,0.1);
-}
+	pre, code {
+		font: 1em/1.2 "Ubuntu Mono", fixed;
+		color: inherit;
+	}
 
-code {
-	background: rgba(0,0,0,0.2);
-	padding: 0.3em 0.5em;
-	border-radius: 0.3em;
-	border: none;
-	color: white;
-	box-shadow: inset 1px 1px 6px rgba(0,0,0,0.3), 0 0 40px rgba(0, 0, 0, 0.08) inset, 1px 1px 0 rgba(255,255,255,0.1);
-	white-space: pre-wrap;
-}
+	pre.code, .well, #_log pre {
+		background: rgba(0,0,0,0.2);
+		padding: 1em 1.5em;
+		border-radius: 0.3em;
+		border: 0;
+		box-shadow: inset 1px 1px 6px rgba(0,0,0,0.3), 0 0 40px rgba(0, 0, 0, 0.08) inset, 1px 1px 0 rgba(255,255,255,0.1);
+	}
 
-#fork_me {position: absolute; top: 0; right: 0;}
+	code {
+		background: rgba(0,0,0,0.2);
+		padding: 0.3em 0.5em;
+		border-radius: 0.3em;
+		border: none;
+		color: white;
+		box-shadow: inset 1px 1px 6px rgba(0,0,0,0.3), 0 0 40px rgba(0, 0, 0, 0.08) inset, 1px 1px 0 rgba(255,255,255,0.1);
+		white-space: pre-wrap;
+	}
 
-pre.code.prettyprint {
-	padding: 1em 1.5em;
-	border: 0;
-}
+	.light pre.code, .light .well, .light code, .light #_log pre {
+		background: rgba(0,0,17,0.15);
+		color: inherit;
+	}
+
+	#fork_me {position: absolute; top: 0; right: 0;}
+
+	pre.code.prettyprint {
+		padding: 1em 1.5em;
+		border: 0;
+	}
+
+/* - **/
 
 /** Button */
 
@@ -107,7 +141,7 @@ pre.code.prettyprint {
 		box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 -1px 6px rgba(0,0,0,0.5);
 	}
 
-	.btn em {font-weight: bold; font-style: normal; padding: 0 0.5em;}
+	.btn em {font-weight: bold; font-style: normal; padding: 0 0.5em; color: white;}
 
 	.btn:hover {
 		background-image: linear-gradient(180deg, rgba(255,255,255,0.3), transparent);
@@ -137,6 +171,11 @@ pre.code.prettyprint {
 	.label a, .label a:visited {text-decoration: none;}
 	.label-default {background: rgba(0,0,0,0.2);}
 
+	.light .btn:hover {text-decoration: none}
+	.light .label {color: inherit; background: rgba(0,0,0,0.05);
+		box-shadow: 0 0 1px rgba(255,255,255,0.1)
+	}
+
 /* -- **/
 
 /** Forms */
@@ -162,7 +201,11 @@ pre.code.prettyprint {
 	.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
 		background: rgba(0,0,0,0.1);
 	}
-	
+
+	.light .table-condensed>tbody>tr>th,
+	.light .table-condensed>tbody>tr>td {
+		border-color: #bbc;
+	}
 /* - **/
 
 /** Navigation Tools */
@@ -190,6 +233,11 @@ pre.code.prettyprint {
 
 	.nav-tabs {
 		border-bottom: 1px solid rgba(255,255,255,0.2);
+	}
+
+	.light .navbar a, .light .navbar a.visited {
+		text-decoration: none; color: #ddd;
+		text-shadow: 0 1px 0 black;
 	}
 
 	.dropdown-menu {
@@ -235,11 +283,18 @@ pre.code.prettyprint {
 		background: #a00;
 		display: inline-block;
 		box-shadow: 1px 2px 0 #600, -1px -1px 1px rgba(0,0,0,0.2);
+		color: white;
+		text-shadow: 0 1px 0 #300;
 	}
+
+	.light .month h4 {
+		font-weight: normal;
+	}
+
 /*	.month a.short {color: black;}*/
 /*	.month a.short:hover {color: #08c;}*/
 
-	.byline b {color: #c00;}
+	.byline b {color: #b00;}
 
 /* -- **/
 
@@ -251,6 +306,10 @@ pre.code.prettyprint {
 		padding: 0.1em 0.7em;
 		border-radius: 0.6em;
 		margin: 1em auto;
+	}
+
+	.light figure {
+		background: rgba(0,0,0,0.05);
 	}
 
 	figure div, figure figcaption, figure form {
@@ -311,7 +370,7 @@ pre.code.prettyprint {
 		text-shadow: 0 0 6px #fff;
 	}
 	.code.rebol a:active, .code.rebol a:hover {color: #fff;}
-	.code.rebol span {color: #ffd; font-weight: normal; font-style: normal;}
+	.code.rebol span, .code.rebol var {color: #ffd; font-weight: normal; font-style: normal;}
 	.code.rebol .dt-function,
 	.code.rebol .dt-native {color: #fe8;}
 	.code.rebol .dt-datatype {color: #fe8;}
@@ -332,12 +391,44 @@ pre.code.prettyprint {
 	.code.rebol .dt-tag {color: #9f7;}
 	.code.rebol .dt-time {color: #fff;}
 	.code.rebol .dt-tuple {color: #fff;}
-	.code.rebol .dt-url, .code.rebol a.dt-url {color: #9f7;}
+	.code.rebol .dt-url,
+	.code.rebol a.dt-url {color: #9f7;}
 	.code.rebol .dt-refinement {color: #ffd;}
 	.code.rebol .dt-set-word,
 	.code.rebol .dt-rebol {color: #fa8; font-weight: bold;}
 	.code.rebol .dt-set-path {color: #fa8; font-weight: bold;}
 	.code.rebol .dt-cmt {color: #aaa; background: rgba(0,0,0,0.1); padding: 0.1em; font-style: italic;}
 	.code.rebol .dt-preamble {color: #9f7; font-style: italic;}
+
+	.light .code.rebol a:active, .light .code.rebol a:hover {color: inherit;}
+	.light .code.rebol span, .light .code.rebol var {color: inherit;}
+	.light .code.rebol .dt-function,
+	.light .code.rebol .dt-native,
+	.light .code.rebol .dt-datatype {color: #900;}
+	.light .code.rebol .dt-bitset,
+	.light .code.rebol .dt-binary,
+	.light .code.rebol .dt-char,
+	.light .code.rebol .dt-email,
+	.light .code.rebol .dt-file,
+	.light .code.rebol .dt-issue,
+	.light .code.rebol .dt-string,
+	.light .code.rebol .dt-bitset,
+	.light .code.rebol .dt-tag,
+	.light .code.rebol .dt-url,
+	.light .code.rebol a.dt-url {color: #700;}
+	.light .code.rebol .dt-date,
+	.light .code.rebol .dt-decimal,
+	.light .code.rebol .dt-integer,
+	.light .code.rebol .dt-lit-word,
+	.light .code.rebol .dt-money,
+	.light .code.rebol .dt-pair,
+	.light .code.rebol .dt-time,
+	.light .code.rebol .dt-tuple {color: inherit;}
+	.light .code.rebol .dt-refinement {color: #ffd;}
+	.light .code.rebol .dt-set-word,
+	.light .code.rebol .dt-rebol,
+	.light .code.rebol .dt-set-path {color: #700; font-weight: bold;}
+	.light .code.rebol .dt-cmt {color: #444; background: rgba(0,0,0,0.1); padding: 0.1em; font-style: italic;}
+	.light .code.rebol .dt-preamble {color: #700; font-style: italic;}
 
 /* - **/
