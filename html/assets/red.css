@@ -424,7 +424,7 @@ h4 {font-family: "Quattrocento Sans", "Helvetica", "Arial", sans-serif;}
 	.light .code.rebol .dt-pair,
 	.light .code.rebol .dt-time,
 	.light .code.rebol .dt-tuple {color: inherit;}
-	.light .code.rebol .dt-refinement {color: #ffd;}
+	.light .code.rebol .dt-refinement {color: #700;}
 	.light .code.rebol .dt-set-word,
 	.light .code.rebol .dt-rebol,
 	.light .code.rebol .dt-set-path {color: #700; font-weight: bold;}
