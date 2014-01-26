@@ -113,8 +113,14 @@ h4 {font-family: "Quattrocento Sans", "Helvetica", "Arial", sans-serif;}
 	}
 
 	.light pre.code, .light .well, .light code, .light #_log pre {
-		background: rgba(0,0,17,0.15);
+		background: rgba(255,255,255,0.3);
 		color: inherit;
+		box-shadow: inset  -1px -1px 1px rgba(0,0,0,0.3), inset 1px 1px 1px rgba(255,255,255,0.3), 1px 1px 10px rgba(0,0,0,0.1);
+		box-shadow: inset  -1px -1px 1px rgba(0,0,0,0.2), inset 1px 1px 1px rgba(255,255,255,0.15), 1px 1px 1px rgba(255,255,255,0.2), -1px -1px 1px rgba(0,0,0,0.1);
+	}
+
+	.light pre.code, .light .well, .light #_log pre {
+		padding: 0.8em 1.2em;
 	}
 
 	#fork_me {position: absolute; top: 0; right: 0;}
@@ -405,7 +411,7 @@ h4 {font-family: "Quattrocento Sans", "Helvetica", "Arial", sans-serif;}
 	.light .code.rebol span, .light .code.rebol var {color: inherit;}
 	.light .code.rebol .dt-function,
 	.light .code.rebol .dt-native,
-	.light .code.rebol .dt-datatype {color: #900;}
+	.light .code.rebol .dt-datatype {color: #b00;}
 	.light .code.rebol .dt-bitset,
 	.light .code.rebol .dt-binary,
 	.light .code.rebol .dt-char,
@@ -416,7 +422,7 @@ h4 {font-family: "Quattrocento Sans", "Helvetica", "Arial", sans-serif;}
 	.light .code.rebol .dt-bitset,
 	.light .code.rebol .dt-tag,
 	.light .code.rebol .dt-url,
-	.light .code.rebol a.dt-url {color: #700;}
+	.light .code.rebol a.dt-url {color: #900;}
 	.light .code.rebol .dt-date,
 	.light .code.rebol .dt-decimal,
 	.light .code.rebol .dt-integer,
@@ -429,7 +435,7 @@ h4 {font-family: "Quattrocento Sans", "Helvetica", "Arial", sans-serif;}
 	.light .code.rebol .dt-set-word,
 	.light .code.rebol .dt-rebol,
 	.light .code.rebol .dt-set-path {color: #700; font-weight: bold;}
-	.light .code.rebol .dt-cmt {color: #444; background: rgba(0,0,0,0.1); padding: 0.1em; font-style: italic;}
+	.light .code.rebol .dt-cmt {color: #555; background: rgba(0,0,0,0.05); padding: 0.1em; font-style: italic;}
 	.light .code.rebol .dt-preamble {color: #700; font-style: italic;}
 
 /* - **/
