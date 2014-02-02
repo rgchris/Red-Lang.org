@@ -1,0 +1,25 @@
+<div class="slideboom"><object
+	classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+	codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0"
+	height="370"
+	id="onlinePlayer<%= id %>"
+	width="425">
+	<param name="movie" value="//www.slideboom.com/player/player.swf?id_resource=<%== id %>" />
+	<param name="allowScriptAccess" value="always" />
+	<param name="quality" value="high" />
+	<param name="bgcolor" value="#ffffff" />
+	<param name="allowFullScreen" value="true" />
+	<param name="flashVars" value="" />
+	<embed
+		allowfullscreen="true"
+		allowscriptaccess="always"
+		bgcolor="#ffffff"
+		flashvars=""
+		height="370"
+		name="onlinePlayer<%= id %>"
+		pluginspage="http://www.macromedia.com/go/getflashplayer"
+		quality="high"
+		src="//www.slideboom.com/player/player.swf?id_resource=<%= id %>"
+		type="application/x-shockwave-flash"
+		width="425"></embed>
+</object></div>

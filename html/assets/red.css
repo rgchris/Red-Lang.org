@@ -337,6 +337,7 @@ h4 {font-family: "Quattrocento Sans", "Helvetica", "Arial", sans-serif;}
 	}
 
 	figure div.sliderocket,
+	figure div.slideboom,
 	figure div.tube {
 		position: relative;
 		padding-bottom: 56.25%;
@@ -348,6 +349,8 @@ h4 {font-family: "Quattrocento Sans", "Helvetica", "Arial", sans-serif;}
 
 	figure div.tube iframe,
 	figure div.sliderocket iframe,
+	figure div.slideboom object,
+	figure div.slideboom embed,
 	figure div.tube object,
 	figure div.tube embed {
 		position: absolute;

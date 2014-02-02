@@ -91,6 +91,7 @@ some [ ;here: (print here)
 		| "flickr.com" url-block (emit flickr values)
 		| "app.sliderocket.com" url-block (emit sliderocket values)
 		| "twitter.com" url-block (emit twitter values)
+		| opt "www." "slideboom.com" url-block (emit slideboom values)
 	]
 
 	;-- load and embed fragments found in %/templates/fragments/ folder

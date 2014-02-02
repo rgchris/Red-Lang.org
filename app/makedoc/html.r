@@ -228,7 +228,7 @@ emit-instagram: func [spec [block!] /local photo href src alt][
 	]
 ]
 
-emit-sliderocket: func [spec [block!] /local slides size width height][
+emit-slideboom: func [spec [block!] /local width height id][
 	either slides: match/loose spec [
 		src: url!
 		size: opt pair!
@@ -236,11 +236,13 @@ emit-sliderocket: func [spec [block!] /local slides size width height][
 		width: any [slides/size 500x401]
 		height: width/y
 		width: either width/x = -1 ["100%"][width/x]
-		emit [
-			{^/<div class="sliderocket">^/<iframe src="} slides/src {" width="} width {" height="} height {"></iframe>^/</div>}
+		if parse/all slides/src amend [
+			thru "?id_resource=" copy id some digit
+		][
+			emit render/partial/with %fragments/slideboom [id width height]
 		]
 	][
-		raise ["Invalid Sliderocket Spec: " sanitize mold spec]
+		raise ["Invalid Slideboom Spec: " sanitize mold spec]
 	]
 ]
 
@@ -438,7 +440,7 @@ normal: [
 	donate: (feed emit render/partial %fragments/donate)
 
 	image: flickr: instagram: (feed emit <figure class="image">) continue media (feed emit </figure>)
-	youtube: vimeo: sliderocket: (feed emit <figure class="media">) continue media (feed emit </figure>)
+	youtube: vimeo: slideboom: (feed emit <figure class="media">) continue media (feed emit </figure>)
 	twitter: (feed emit-twitter data)
 ]
 
@@ -620,11 +622,11 @@ media: [
 	flickr: (feed emit-flickr data) return
 	instagram: (feed emit-instagram data) return
 	image: (feed emit-image data) return
-	sliderocket: (feed emit-sliderocket data) return
+	slideboom: (feed emit-slideboom data) return
 ]
 
 in-figure: [
-	image: flickr: instagram: youtube: vimeo: sliderocket: continue media
+	image: flickr: instagram: youtube: vimeo: slideboom: continue media
 	para: (feed emit <figcaption> emit-inline data emit </figcaption>)
 	group-in: (feed emit <figcaption>) in-group (feed emit </figcaption>)
 	donate: (feed emit render/partial %fragments/donate)
