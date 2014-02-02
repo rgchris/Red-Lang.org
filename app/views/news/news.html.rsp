@@ -14,3 +14,6 @@
 </div>
 
 </div><!-- /row -->
+
+<script type="text/javascript" src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+<script type="text/javascript" src="/assets/lang-rebol.js"></script>
