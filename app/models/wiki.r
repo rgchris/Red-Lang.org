@@ -43,3 +43,7 @@ record: make record [
 		]
 	]
 ]
+
+queries: make queries [
+	by-old-slug: {SELECT * FROM wiki WHERE blogger_id = ?}
+]

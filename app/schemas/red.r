@@ -84,6 +84,7 @@ db_red: database [
 		modified: opt date!
 		author: :users
 		created: date!
+		blogger-id: opt string! 60
 	]
 
 	news: table [
@@ -98,6 +99,7 @@ db_red: database [
 		published: opt date!
 		modified: date!
 		tags: opt block! 400
+		blogger-id: opt string! 80
 	]
 
 	slideshows: table [

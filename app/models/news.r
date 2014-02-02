@@ -74,6 +74,10 @@ queries: make queries [
 	tag-cloud: {
 		SELECT tag, COUNT(*) AS count FROM tags_news GROUP BY tag ORDER BY tag
 	}
+
+	by-old-slug: {
+		SELECT * FROM news WHERE status = 'live' AND blogger_id = ?
+	}
 ]
 
 record: make record [

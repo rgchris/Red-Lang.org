@@ -101,6 +101,7 @@ CREATE TABLE `wiki` (
 	`modified` DATETIME,
 	`author` VARCHAR(20) NOT NULL,
 	`created` DATETIME NOT NULL,
+	`blogger_id` VARCHAR(60),
 	PRIMARY KEY (`id`),
 	INDEX (`id`)
 );
@@ -118,6 +119,7 @@ CREATE TABLE `news` (
 	`published` DATETIME,
 	`modified` DATETIME NOT NULL,
 	`tags` VARBINARY(400),
+	`blogger_id` VARCHAR(80),
 	PRIMARY KEY (`id`),
 	INDEX (`id`, `title`, `status`, `author`)
 );

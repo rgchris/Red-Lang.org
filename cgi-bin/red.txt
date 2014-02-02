@@ -66,4 +66,32 @@ REBOL [
 	]
 ]
 
+unless get-env "UNIQUE_ID" [
+	set-env "UNIQUE_ID" form checksum/secure form now/precise
+]
+
+use [rq fn slug][
+	fn: charset "abcdefghijklmnopqrstuvwxyz0123456789-"
+
+	rq: any [
+		select system/options/cgi/other-headers "HTTP_INTERNAL_REFERER"
+		get-env "REQUEST_URI"
+		"word"
+	]
+
+	if parse/all/case rq [
+		"/p/" copy slug some fn opt ".html" end (slug: join "/redirects/wiki/" slug)
+		|
+		"/" copy slug [integer! "/" integer! "/" some fn] opt ".html" end (
+			slug: join "/redirects/news/" slug
+		)
+	][
+		remove-each [header value] system/options/cgi/other-headers [
+			header = "HTTP_INTERNAL_REFERER"
+		]
+
+		set-env "REQUEST_URI" slug
+	]
+]
+
 do/args system/script/header/path system/script/header
