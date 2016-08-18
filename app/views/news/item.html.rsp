@@ -30,5 +30,5 @@
 %>
 </div>
 
-<script type="text/javascript" src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
 <script type="text/javascript" src="/assets/lang-rebol.js"></script>
